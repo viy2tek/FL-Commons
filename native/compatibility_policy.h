@@ -34,7 +34,7 @@ inline std::string module_sha256() {
 }
 
 inline unsigned native_allowed_methods(int host_api) {
-    // Built-in contract evidence survives a missing/corrupt optional update policy.
+    // Missing policy retains built-in evidence; a present invalid policy fails closed.
     const unsigned fallback = host_api == 26001007 ? 7 : 0;
     wchar_t directory[32768];
     DWORD length = GetEnvironmentVariableW(L"LOCALAPPDATA", directory, 32768);

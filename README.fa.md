@@ -18,7 +18,7 @@ transport.stop
 
 ## شروع سریع
 
-**هدف سازگاری: FL Studio 25/26 و جدیدتر روی Windows x64.** این مخزن فعلاً کد منبع توزیع می‌کند. ساخت به Python 3.10+، MSVC 2022 Build Tools، Windows SDK و **fpsdk_20210311b** خارجی نیاز دارد. این‌ها الزامات ساخت برای توسعه‌دهندگان هستند. SDK را خارج مخزن استخراج و مسیرها را عوض کنید. مؤلفه بومی منتشرشده هنوز فقط بیلد آزموده‌شده را می‌پذیرد؛ انتخاب تطبیقی و توزیع آماده استفاده پیاده‌سازی نشده‌اند.
+**هدف سازگاری: FL Studio 25/26 و جدیدتر روی Windows x64.** این مخزن فعلاً کد منبع توزیع می‌کند. ساخت به Python 3.10+، MSVC 2022 Build Tools، Windows SDK و **fpsdk_20210311b** خارجی نیاز دارد. این‌ها الزامات ساخت برای توسعه‌دهندگان هستند. SDK را خارج مخزن استخراج و مسیرها را عوض کنید.
 
 بسته Python را از این مخزن نصب کنید و سپس مؤلفه بومی را بسازید:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## اعتبارسنجی و محدودیت‌ها
 
-**تأیید شده:** ۵۲ آزمون Python و ۲۱ آزمون بومی به‌صورت محلی موفق شدند. Python CI روی Windows و Linux با Python 3.10، 3.12 و 3.14 موفق شد. در جلسه آزمایشی مجاز، callbackهای FL 26.1.7.5653 توالی Play → Pause → Play → Stop را تأیید کردند. CI لینوکس افزونه FL را اعتبارسنجی نمی‌کند.
+**تأیید شده:** ۷۷ آزمون Python و ۲۷ آزمون بومی به‌صورت محلی موفق شدند. Python CI روی Windows و Linux با Python 3.10، 3.12 و 3.14 موفق شد. در جلسه آزمایشی مجاز، callbackهای FL 26.1.7.5653 توالی Play → Pause → Play → Stop را تأیید کردند. CI لینوکس افزونه FL را اعتبارسنجی نمی‌کند.
 
-**پیاده‌سازی نشده:** ویرایش Mixer، کانال و پروژه، جریان رویداد عمومی، کشف نامحدود و به‌روزرسانی خودکار آداپتور. اثر بر صدا و بیلدهای دیگر آزموده نشده‌اند. آخرین اصلاح قفل صف در آزمون کنترل‌شده کلاینت کند موفق بود، اما هنوز در FL دوباره بارگذاری نشده؛ هش نسخه ساخته‌شده و نسخه آزموده‌شده جدا ثبت شده‌اند. این تأیید کل SDK نیست.
+ویرایش Mixer، کانال و پروژه و رویدادهای عمومی پیاده‌سازی نشده‌اند. انتخاب تطبیقی از پروفایل رابط‌های پیاده‌شده استفاده می‌کند و به‌روزرسانی تأییدشده staging و rollback دارد. قراردادهای دیگر به پروفایل تأییدشده نیاز دارند؛ کشف نامحدود یا سازگاری همه بیلدها ادعا نمی‌شود. DLL جدید آزمون کنترل‌شده را گذرانده ولی هنوز در FL دوباره بارگذاری نشده است. راهنمای سازگاری را ببینید.
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

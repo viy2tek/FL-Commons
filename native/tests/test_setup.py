@@ -9,6 +9,21 @@ from native.setup import install_plugin
 
 
 class SetupTests(unittest.TestCase):
+    def test_explicit_modern_installation_is_selected_instead_of_latest(self):
+        from native.setup import main
+        from fl_commons.compatibility import builtin_profiles
+        profile = dict(builtin_profiles()[0], host_api_versions=[25000000])
+        inventory = {'selected_version': '26.1.7.5653', 'processes': [], 'installations': [
+            {'path': 'C:/FL25/FL64.exe', 'version': '25.0.0.1'},
+            {'path': 'C:/FL26/FL64.exe', 'version': '26.1.7.5653'}]}
+        with patch('sys.argv', ['setup.py', '--dll', 'fixture.dll', '--installation', 'C:/FL25/FL64.exe']), \
+             patch('native.setup.inspect_host', return_value=inventory), \
+             patch('native.setup.current_profiles', return_value=[profile]), \
+             patch('native.setup.install_plugin', return_value=Path('fixture.dll')) as install, \
+             patch('native.setup.save_native_policy'), contextlib.redirect_stdout(io.StringIO()):
+            with patch('pathlib.Path.read_bytes', return_value=b'MZ'):
+                main()
+        self.assertEqual(install.call_args.args[1], Path('C:/FL25'))
     def test_running_fl_prevents_install_and_launch(self):
         from native.setup import main
         with patch("sys.argv", ["setup.py", "--dll", "unused.dll", "--launch"]), \

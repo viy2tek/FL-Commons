@@ -18,7 +18,7 @@ transport.stop
 
 ## 빠른 시작
 
-**호환성 목표: Windows x64의 FL Studio 25/26 이상.** 현재 저장소는 소스 코드를 배포합니다. 빌드에는 Python 3.10+, MSVC 2022 Build Tools, Windows SDK 및 외부 제공 **fpsdk_20210311b**가 필요합니다. 이는 개발자 빌드 요구 사항입니다. SDK를 저장소 밖에 압축 해제하고 예제 경로를 바꾸세요. 배포된 네이티브 구성 요소는 아직 테스트된 빌드만 허용합니다. 적응형 선택과 바로 사용할 수 있는 배포 패키지는 미구현입니다.
+**호환성 목표: Windows x64의 FL Studio 25/26 이상.** 현재 저장소는 소스 코드를 배포합니다. 빌드에는 Python 3.10+, MSVC 2022 Build Tools, Windows SDK 및 외부 제공 **fpsdk_20210311b**가 필요합니다. 이는 개발자 빌드 요구 사항입니다. SDK를 저장소 밖에 압축 해제하고 예제 경로를 바꾸세요.
 
 이 저장소에서 Python 패키지를 설치한 다음 네이티브 구성 요소를 빌드하세요:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## 검증과 한계
 
-**검증됨:** 로컬 Python 테스트 52개와 네이티브 테스트 21개가 통과했습니다. Python CI는 Windows, Linux 및 Python 3.10, 3.12, 3.14에서 통과했습니다. 승인된 테스트 세션에서 FL 26.1.7.5653 콜백으로 Play → Pause → Play → Stop을 확인했습니다. Linux CI는 FL 플러그인을 검증하지 않습니다.
+**검증됨:** 로컬 Python 테스트 77개와 네이티브 테스트 27개가 통과했습니다. Python CI는 Windows, Linux 및 Python 3.10, 3.12, 3.14에서 통과했습니다. 승인된 테스트 세션에서 FL 26.1.7.5653 콜백으로 Play → Pause → Play → Stop을 확인했습니다. Linux CI는 FL 플러그인을 검증하지 않습니다.
 
-**미구현:** Mixer/채널/프로젝트 편집, 공개 이벤트 스트림, 무제한 탐색 및 자동 어댑터 업데이트. 오디오 영향과 다른 빌드는 테스트하지 않았습니다. 최신 큐 잠금 수정은 느린 클라이언트 제어 테스트를 통과했지만 FL에 다시 로드하지 않았습니다. 빌드 및 실제 검증 해시는 별도로 기록됩니다. SDK 전체에 대한 인증이 아닙니다.
+Mixer/채널/프로젝트 편집과 공개 이벤트는 미구현입니다. 적응형 선택은 구현된 인터페이스 프로필을 사용하며 검증된 업데이트는 스테이징과 롤백을 지원합니다. 다른 계약에는 검증된 프로필이 필요합니다. 무제한 탐색이나 모든 빌드 호환성을 주장하지 않습니다. 새 DLL은 제어 테스트를 통과했지만 FL에 다시 로드되지 않았습니다. 호환성 안내를 참고하세요.
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

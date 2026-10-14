@@ -1,5 +1,11 @@
 # FL Commons API v0.1 — contrato inicial para programadores
 
+Atualização: FLStudio.connect(update_policy="automatic") seleciona interfaces
+conhecidas e verifica o canal assinado. Omitir update_policy preserva a política
+salva; manual não faz checks automáticos. As chamadas nativas diretas também
+validam capacidades antes do envio. Consulte o
+[guia de compatibilidade e updates](adaptive-compatibility.md).
+
 O caminho principal usa o componente nativo oficial no FL, HTTP em 127.0.0.1:3211
 e SDK Python. MIDI, IA, REA e Ghidra não são requisitos de execução.
 
@@ -24,7 +30,7 @@ Timeout de escrita não permite repetição automática. Client continua dispon�
 em fl_commons.sdk; flcommons.FLStudio é o mesmo cliente sob o nome público.
 
 FLStudio.connect() recupera o token protegido do usuário Windows, verifica a
-conexão e restringe ao build-alvo. status() mantém compatibilidade com o plugin
+conexão e resolve capacidades pelo contrato observado. status() mantém compatibilidade com o plugin
 inicial, consultando /v1/compatibility quando /v1/status não está presente.
 Se o FL reiniciar e o token mudar, execute connect() novamente. Não se repetem
 automaticamente comandos anteriores.

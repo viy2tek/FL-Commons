@@ -17,3 +17,5 @@ research/evidence/
 plugin-unit.cpp
 native-session.bin
 *.dpapi
+*.bin
+.superpowers/

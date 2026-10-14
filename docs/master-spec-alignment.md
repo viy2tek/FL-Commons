@@ -50,7 +50,16 @@ O código original já tem licença MIT. O PDF deixa a licença final em aberto
 (páginas 14 e 16). Não houve mudança de licença nem autorização de redistribuição
 do SDK proprietário; seus termos permanecem separados.
 
-## Comparação com o código e as evidências
+## Atualização: engine adaptativa implementada
+
+O registro de perfis, resolução por contrato, seleção de capacidades, política
+manual/automática e updater assinado com staging/rollback estão implementados.
+O canal público inicial distribui perfis originais assinados. A evidência real
+continua limitada ao teste registrado; os fixtures FL25 não viram certificação.
+Veja [comportamento entregue](adaptive-compatibility.md). A DLL nova foi compilada
+e testada em host controlado; recarga no FL real está pendente.
+
+## Comparação histórica com o código e as evidências
 
 | Requisito | Estado comprovado | Lacuna |
 | --- | --- | --- |

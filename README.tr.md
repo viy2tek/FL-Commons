@@ -18,7 +18,7 @@ transport.stop
 
 ## Hızlı başlangıç
 
-**Uyumluluk hedefi: Windows x64 üzerinde FL Studio 25/26 ve sonrası.** Depo şu an kaynak kod dağıtır. Derleme Python 3.10+, MSVC 2022 Build Tools, Windows SDK ve harici **fpsdk_20210311b** gerektirir. Bunlar geliştirici derleme gereksinimleridir. SDK’yı depo dışına çıkarın ve örnek yolları değiştirin. Yayımlanan yerel bileşen hâlâ yalnızca test edilen derlemeyi kabul eder; adaptif seçim ve kullanıma hazır dağıtım uygulanmadı.
+**Uyumluluk hedefi: Windows x64 üzerinde FL Studio 25/26 ve sonrası.** Depo şu an kaynak kod dağıtır. Derleme Python 3.10+, MSVC 2022 Build Tools, Windows SDK ve harici **fpsdk_20210311b** gerektirir. Bunlar geliştirici derleme gereksinimleridir. SDK’yı depo dışına çıkarın ve örnek yolları değiştirin.
 
 Python paketini bu depodan kurun, ardından yerel bileşeni derleyin:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Doğrulama ve sınırlar
 
-**Doğrulandı:** yerelde 52 Python ve 21 yerel bileşen testi geçti. Python CI, Windows ve Linux üzerinde Python 3.10, 3.12 ve 3.14 ile geçti. Yetkili test oturumunda FL 26.1.7.5653 geri çağrıları Play → Pause → Play → Stop dizisini doğruladı. Linux CI, FL eklentisini doğrulamaz.
+**Doğrulandı:** yerelde 77 Python ve 27 yerel bileşen testi geçti. Python CI, Windows ve Linux üzerinde Python 3.10, 3.12 ve 3.14 ile geçti. Yetkili test oturumunda FL 26.1.7.5653 geri çağrıları Play → Pause → Play → Stop dizisini doğruladı. Linux CI, FL eklentisini doğrulamaz.
 
-**Uygulanmadı:** Mixer/kanal/proje düzenleme, genel olay akışları, sınırsız keşif ve otomatik adaptör güncelleme. Ses etkisi ve diğer derlemeler test edilmedi. Son kuyruk kilidi düzeltmesi kontrollü yavaş istemci testini geçti ancak FL’ye yeniden yüklenmedi; derlenen ve canlı test edilen hash’ler ayrıdır. Tüm SDK için sertifikasyon değildir.
+Mixer/kanal/proje düzenleme ve genel olaylar uygulanmadı. Adaptif seçim uygulanmış arayüz profillerini kullanır; doğrulanmış güncellemeler staging ve rollback sağlar. Diğer sözleşmeler doğrulanmış profil gerektirir; sınırsız keşif veya tüm derlemelerle uyumluluk iddia edilmez. Yeni DLL kontrollü testleri geçti ama FL’ye yeniden yüklenmedi. Uyumluluk kılavuzuna bakın.
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ Aşağıdaki ayrıntılı belgeler çoğunlukla Portekizcedir. Ana README dili �
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

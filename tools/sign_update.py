@@ -31,10 +31,6 @@ def main(argv=None):
             parser.error('Key exists; never silently rotate publisher trust')
         key = Ed25519PrivateKey.generate()
         raw = key.private_bytes(serialization.Encoding.Raw, serialization.PrivateFormat.Raw, serialization.NoEncryption())
-        encrypted = _dpapi(b'FLCommons-publisher-v1\x00' + raw, True)
-        key_path.parent.mkdir(parents=True, exist_ok=True)
-        with key_path.open('xb') as stream:
-            stream.write(encrypted)
     else:
         encrypted = key_path.read_bytes()
         if len(encrypted) > 4096:
@@ -47,9 +43,14 @@ def main(argv=None):
     public = key.public_key().public_bytes(serialization.Encoding.Raw, serialization.PublicFormat.Raw)
     key_id = hashlib.sha256(public).hexdigest()[:16]
     root = {key_id: base64.b64encode(public).decode()}
+    if args.public_output and args.public_output.exists() and json.loads(args.public_output.read_text()) != root:
+        parser.error('Existing trust root differs; key rotation needs a verified transition')
+    if args.create_key:
+        encrypted = _dpapi(b'FLCommons-publisher-v1\x00' + raw, True)
+        key_path.parent.mkdir(parents=True, exist_ok=True)
+        with key_path.open('xb') as stream:
+            stream.write(encrypted)
     if args.public_output:
-        if args.public_output.exists() and json.loads(args.public_output.read_text()) != root:
-            parser.error('Existing trust root differs; key rotation needs a verified transition')
         args.public_output.parent.mkdir(parents=True, exist_ok=True)
         args.public_output.write_text(json.dumps(root, indent=2) + '\n', encoding='utf-8')
     if args.payload:

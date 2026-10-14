@@ -18,7 +18,7 @@ transport.stop
 
 ## Γρήγορη εκκίνηση
 
-**Στόχος συμβατότητας: FL Studio 25/26 και νεότερα σε Windows x64.** Το αποθετήριο διανέμει προς το παρόν πηγαίο κώδικα. Η μεταγλώττιση απαιτεί Python 3.10+, MSVC 2022 Build Tools, Windows SDK και εξωτερικό **fpsdk_20210311b**. Είναι απαιτήσεις μεταγλώττισης για προγραμματιστές. Αποσυμπιέστε το SDK εκτός αποθετηρίου και αλλάξτε τις διαδρομές. Το δημοσιευμένο εγγενές στοιχείο δέχεται ακόμη μόνο το δοκιμασμένο build· προσαρμοστική επιλογή και έτοιμη διανομή δεν υλοποιήθηκαν.
+**Στόχος συμβατότητας: FL Studio 25/26 και νεότερα σε Windows x64.** Το αποθετήριο διανέμει προς το παρόν πηγαίο κώδικα. Η μεταγλώττιση απαιτεί Python 3.10+, MSVC 2022 Build Tools, Windows SDK και εξωτερικό **fpsdk_20210311b**. Είναι απαιτήσεις μεταγλώττισης για προγραμματιστές. Αποσυμπιέστε το SDK εκτός αποθετηρίου και αλλάξτε τις διαδρομές.
 
 Εγκαταστήστε το πακέτο Python από αυτό το αποθετήριο και μεταγλωττίστε το εγγενές στοιχείο:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Επαλήθευση και όρια
 
-**Επαληθεύτηκαν:** 52 δοκιμές Python και 21 εγγενείς δοκιμές πέρασαν τοπικά. Το Python CI πέρασε σε Windows και Linux με Python 3.10, 3.12 και 3.14. Οι επανακλήσεις του FL 26.1.7.5653 επιβεβαίωσαν Play → Pause → Play → Stop σε εξουσιοδοτημένη συνεδρία δοκιμής. Το Linux CI δεν επαληθεύει το πρόσθετο FL.
+**Επαληθεύτηκαν:** 77 δοκιμές Python και 27 εγγενείς δοκιμές πέρασαν τοπικά. Το Python CI πέρασε σε Windows και Linux με Python 3.10, 3.12 και 3.14. Οι επανακλήσεις του FL 26.1.7.5653 επιβεβαίωσαν Play → Pause → Play → Stop σε εξουσιοδοτημένη συνεδρία δοκιμής. Το Linux CI δεν επαληθεύει το πρόσθετο FL.
 
-**Δεν έχουν υλοποιηθεί:** επεξεργασία Mixer/καναλιών/έργων, δημόσιες ροές συμβάντων, απεριόριστη ανακάλυψη και αυτόματες ενημερώσεις προσαρμογέων. Η επίδραση στον ήχο και άλλα builds δεν δοκιμάστηκαν. Η τελευταία διόρθωση κλειδώματος ουράς πέρασε ελεγχόμενη δοκιμή αργού πελάτη αλλά δεν επαναφορτώθηκε στο FL· τα hashes μεταγλωττισμένης και ζωντανά δοκιμασμένης DLL καταγράφονται χωριστά. Δεν πιστοποιείται ολόκληρο το SDK.
+Επεξεργασία Mixer/καναλιών/έργων και δημόσια συμβάντα δεν υλοποιήθηκαν. Η προσαρμοστική επιλογή χρησιμοποιεί προφίλ υλοποιημένων διεπαφών· επαληθευμένες ενημερώσεις υποστηρίζουν staging και rollback. Άλλες συμβάσεις απαιτούν επαληθευμένα προφίλ· δεν δηλώνεται απεριόριστη ανακάλυψη ή συμβατότητα με όλα τα builds. Η νέα DLL πέρασε ελεγχόμενες δοκιμές αλλά δεν επαναφορτώθηκε στο FL. Δείτε τον οδηγό συμβατότητας.
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

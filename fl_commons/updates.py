@@ -13,13 +13,15 @@ import time
 from urllib.parse import urlsplit
 import urllib.request
 import zipfile
+import subprocess
+import sys
 
 from flcommons_common.validation import strict_json, ProtocolError
 from .errors import OperationError
 from .compatibility import validate_profile
 
 PREFIX = b'FLCommons-update-v1\x00'
-CHANNEL = 'https://github.com/viy2tek/FL-Commons/releases/download/compatibility-v1/manifest.json'
+CHANNEL = 'https://raw.githubusercontent.com/viy2tek/FL-Commons/compatibility-v1/updates/manifest.json'
 MAX_MANIFEST = 65536
 MAX_ARTIFACT = 32 * 1024 * 1024
 FIELDS = {'schema', 'revision', 'expires_at', 'min_runtime', 'artifacts'}
@@ -55,6 +57,8 @@ def _allowed_url(url, redirect=False):
         return False
     if parts.hostname == 'github.com':
         return parts.path.startswith('/viy2tek/FL-Commons/releases/download/') and not parts.query and '%' not in parts.path and '..' not in parts.path
+    if parts.hostname == 'raw.githubusercontent.com':
+        return parts.path.startswith('/viy2tek/FL-Commons/compatibility-v1/updates/') and not parts.query and '%' not in parts.path and '..' not in parts.path
     return redirect and parts.hostname in ('release-assets.githubusercontent.com', 'objects.githubusercontent.com')
 
 
@@ -410,3 +414,57 @@ def connection_updates(policy=None):
         return result
     except (OperationError, OSError) as error:
         return {'status': 'unavailable', 'reason': getattr(error, 'code', 'update_io_error')}
+
+
+def host_running():
+    from .host import inspect_host
+    try:
+        return bool(inspect_host()['processes'])
+    except OperationError:
+        return True  # Unknown host state never authorizes native activation.
+
+
+def validate_candidate(stage):
+    from .host import inspect_host
+    from .compatibility import select_install_profile
+    try:
+        inventory = inspect_host()
+        manifest = _validated_stage(stage, Path(stage).parent.parent)
+        profiles = [p for a in manifest['artifacts'] if a['kind'] == 'adapter_profile'
+                    for p in _profiles((Path(stage) / a['sha256']).read_bytes())]
+        if profiles:
+            select_install_profile(inventory['selected_version'], profiles)
+        return True
+    except (OperationError, OSError, KeyError):
+        return False
+
+
+def apply_pending(state_dir=None):
+    directory = Path(state_dir) if state_dir is not None else update_directory()
+    state = _state(directory)
+    if state['pending'] is None:
+        return {'status': 'no_pending_update'}
+    return activate_update(directory / 'staged' / state['pending'], directory,
+                           validate_candidate, host_running())
+
+
+def run_runtime(arguments, state_dir=None):
+    directory = Path(state_dir) if state_dir is not None else update_directory()
+    state = _state(directory)
+    if state['current'] is None:
+        _fail('runtime_unavailable', 'No verified runtime is active')
+    stage = directory / 'staged' / state['current']
+    manifest = _validated_stage(stage, directory, now=0)
+    if not any(a['kind'] == 'python_runtime' for a in manifest['artifacts']):
+        _fail('runtime_unavailable', 'Active update contains no Python runtime')
+    runtime = stage / 'runtime'
+    # Recreate from verified bytes instead of trusting previously extracted mutable modules.
+    with tempfile.TemporaryDirectory(prefix='.runtime-', dir=directory) as temporary:
+        execution = Path(temporary)
+        assert execution.parent.resolve() == directory.resolve()
+        for artifact in manifest['artifacts']:
+            if artifact['kind'] == 'python_runtime':
+                with _archive((stage / artifact['sha256']).read_bytes(), 'python_runtime') as archive:
+                    archive.extractall(execution)
+        return subprocess.call([sys.executable, '-m', 'fl_commons', *arguments], cwd=execution,
+                               env=dict(os.environ, PYTHONPATH=str(execution)))

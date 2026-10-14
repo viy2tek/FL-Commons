@@ -1,5 +1,11 @@
 # Segurança
 
+Atualizações usam chave Ed25519 pública fixada, revisão monotônica, expiração,
+hashes, limites, staging e ativação atômica. O canal não recebe tokens ou projetos.
+Perfis só escolhem implementações registradas. Chaves privadas ficam fora do
+repositório e DLL carregada não é sobrescrita. Consulte o
+[modelo de atualizações](docs/adaptive-compatibility.md).
+
 FL Commons API v0.1 é um serviço para um único computador confiável. Não exponha sua
 porta por proxy, túnel ou rede. Escuta apenas 127.0.0.1, exige token em todas as
 rotas, restringe Host, rejeita Origin e não habilita CORS. O servidor HTTP usa a

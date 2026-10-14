@@ -18,7 +18,7 @@ transport.stop
 
 ## Швидкий початок
 
-**Цільова сумісність: FL Studio 25/26 і новіші на Windows x64.** Репозиторій наразі поширює вихідний код. Збирання потребує Python 3.10+, MSVC 2022 Build Tools, Windows SDK і зовнішнього **fpsdk_20210311b**. Це вимоги для збирання розробниками. Розпакуйте SDK поза репозиторієм і замініть шляхи. Опублікований нативний компонент поки приймає лише перевірену збірку; адаптивний вибір і готове до використання постачання не реалізовані.
+**Цільова сумісність: FL Studio 25/26 і новіші на Windows x64.** Репозиторій наразі поширює вихідний код. Збирання потребує Python 3.10+, MSVC 2022 Build Tools, Windows SDK і зовнішнього **fpsdk_20210311b**. Це вимоги для збирання розробниками. Розпакуйте SDK поза репозиторієм і замініть шляхи.
 
 Встановіть пакет Python із цього репозиторію, потім зберіть нативний компонент:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Перевірка й обмеження
 
-**Перевірено:** локально пройшли 52 Python-тести й 21 нативний тест. Python CI пройшов на Windows і Linux із Python 3.10, 3.12 та 3.14. У дозволеній тестовій сесії FL 26.1.7.5653 зворотні виклики підтвердили Play → Pause → Play → Stop. Linux CI не перевіряє плагін FL.
+**Перевірено:** локально пройшли 77 Python-тести й 27 нативний тест. Python CI пройшов на Windows і Linux із Python 3.10, 3.12 та 3.14. У дозволеній тестовій сесії FL 26.1.7.5653 зворотні виклики підтвердили Play → Pause → Play → Stop. Linux CI не перевіряє плагін FL.
 
-**Не реалізовано:** редагування Mixer/каналів/проєктів, публічні потоки подій, необмежене виявлення та автоматичне оновлення адаптерів. Вплив на аудіо й інші збірки не перевірені. Останнє виправлення блокування черги пройшло контрольований тест із повільним клієнтом, але ще не перезавантажене у FL; хеші зібраної та перевіреної DLL записано окремо. Це не сертифікація всього SDK.
+Редагування Mixer/каналів/проєктів і публічні події не реалізовані. Адаптивний вибір використовує профілі реалізованих інтерфейсів; перевірені оновлення підтримують staging і відкат. Інші контракти потребують перевірених профілів; необмежене виявлення чи сумісність з усіма збірками не заявляються. Нова DLL пройшла контрольовані тести, але ще не перезавантажена у FL. Дивіться посібник сумісності.
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

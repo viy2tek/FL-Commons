@@ -1,6 +1,5 @@
 """Read-only Windows host inventory through documented OS interfaces."""
 import os
-import ntpath
 import re
 from pathlib import Path
 import subprocess
@@ -66,14 +65,14 @@ def inspect_host():
         data = strict_json(result.stdout.lstrip('\ufeff'))
         if not _valid_inventory(data):
             raise ProtocolError('Invalid host inventory')
-        data = _latest_only(data)
+        data = _select_installations(data)
     except (OSError, subprocess.SubprocessError, ProtocolError, UnicodeError) as exc:
         raise OperationError('host_inspection_failed', 'Windows host query failed; no absence inferred') from exc
     return dict(data, platform='windows', control_connected=False,
-                coverage='latest-known-version-in-standard-install-locations')
+                coverage='fl25-and-later-in-standard-install-locations')
 
 
-def _latest_only(data):
+def _select_installations(data):
     versions = []
     for item in data['installations']:
         version = item['version']
@@ -81,14 +80,11 @@ def _latest_only(data):
             raise ProtocolError('Cannot select latest installation with unknown version metadata')
         versions.append(tuple(int(part) for part in version.split('.')))
     if not versions:
-        return {'installations': [], 'processes': [], 'selected_version': None}
-    latest = max(versions)
-    installations = [item for item, version in zip(data['installations'], versions) if version == latest]
-    paths = {ntpath.normcase(item['path']) for item in installations}
-    processes = [item for item in data['processes'] if item['path'] is not None and
-                 ntpath.normcase(item['path']) in paths and item['identity_verified']]
-    return {'installations': installations, 'processes': processes,
-            'selected_version': '.'.join(str(part) for part in latest)}
+        return {'installations': [], 'processes': data['processes'], 'selected_version': None}
+    modern = [(item, version) for item, version in zip(data['installations'], versions) if version[0] >= 25]
+    latest = max((version for _, version in modern), default=None)
+    return {'installations': [item for item, _ in modern], 'processes': data['processes'],
+            'selected_version': '.'.join(str(part) for part in latest) if latest else None}
 
 
 def _valid_inventory(data):

@@ -1,5 +1,14 @@
 # API nativa hospedada no FL Studio
 
+## Atualização: seleção por contrato
+
+O componente novo lê o build real e seleciona operações por contrato do host
+e política protegida vinculada ao hash da DLL, em vez de comparar um build
+completo fixo. Alvo: FL Studio 25/26 em diante. O contrato conhecido é o
+HostVersion 26001007; outros exigem perfis verificados. Isso não certifica
+todos os builds. Consulte [compatibilidade adaptativa](../docs/adaptive-compatibility.md).
+Os registros abaixo documentam o componente anterior e o teste efetivamente feito.
+
 O plugin **FL Commons API.dll** hospeda HTTP diretamente no FL em
 127.0.0.1:3211. Não requer MIDI nem servidor Python. FL Commons é independente
 e não afiliado à Image-Line. DLL x64 compilada; testes de HTTP em host

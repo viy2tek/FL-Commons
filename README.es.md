@@ -18,7 +18,7 @@ transport.stop
 
 ## Inicio rápido
 
-**Objetivo de compatibilidad: FL Studio 25/26 y posteriores en Windows x64.** Este repositorio distribuye código fuente. Compilar requiere Python 3.10+, MSVC 2022 Build Tools, Windows SDK y **fpsdk_20210311b** externo. Son requisitos de compilación para desarrolladores. Extrae el SDK fuera del repositorio y cambia las rutas de ejemplo. El componente nativo publicado aún acepta solo el build probado; selección adaptativa y distribución lista para usar todavía no implementadas.
+**Objetivo de compatibilidad: FL Studio 25/26 y posteriores en Windows x64.** Este repositorio distribuye código fuente. Compilar requiere Python 3.10+, MSVC 2022 Build Tools, Windows SDK y **fpsdk_20210311b** externo. Son requisitos de compilación para desarrolladores. Extrae el SDK fuera del repositorio y cambia las rutas de ejemplo.
 
 Instala el paquete Python desde este repositorio y compila el componente nativo:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Validación y límites
 
-**Verificado:** pasaron 52 pruebas Python y 21 nativas localmente. El CI Python pasó en Windows y Linux con Python 3.10, 3.12 y 3.14. Play → Pause → Play → Stop fue confirmado por callbacks de FL en una sesión de prueba autorizada del build 26.1.7.5653. El CI Linux no valida el plugin de FL.
+**Verificado:** pasaron 77 pruebas Python y 27 nativas localmente. El CI Python pasó en Windows y Linux con Python 3.10, 3.12 y 3.14. Play → Pause → Play → Stop fue confirmado por callbacks de FL en una sesión de prueba autorizada del build 26.1.7.5653. El CI Linux no valida el plugin de FL.
 
-**Sin implementar:** edición de Mixer/canales/proyectos, eventos públicos, descubrimiento sin restricciones y actualizaciones automáticas de adaptadores. No se probaron el impacto en audio ni otros builds. La última corrección del bloqueo de la cola pasó una prueba controlada con un cliente lento, pero no se recargó en FL; los hashes compilado y probado se registran por separado. No certifica todo el SDK.
+No están implementados la edición de Mixer/canales/proyectos ni los eventos públicos. La selección adaptativa usa perfiles de interfaces implementadas; las actualizaciones verificadas permiten staging y rollback. Otros contratos requieren perfiles verificados; no se afirma descubrimiento ilimitado ni compatibilidad con todos los builds. La DLL nueva pasó pruebas controladas pero aún no se recargó en FL. Consulta la guía de compatibilidad.
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ Los enlaces siguientes amplían la documentación, actualmente mayormente en por
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

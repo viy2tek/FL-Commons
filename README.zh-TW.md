@@ -18,7 +18,7 @@ transport.stop
 
 ## 快速開始
 
-**相容性目標：Windows x64 上的 FL Studio 25/26 及後續版本。** 此儲存庫目前散布原始碼。編譯需要 Python 3.10+、MSVC 2022 Build Tools、Windows SDK 與外部提供的 **fpsdk_20210311b**。這些是開發者的編譯需求。請將 SDK 解壓縮到儲存庫之外並替換範例路徑。已發布的原生元件仍僅接受已測試的組建版本；自適應選擇與即裝即用的發行套件尚未實作。
+**相容性目標：Windows x64 上的 FL Studio 25/26 及後續版本。** 此儲存庫目前散布原始碼。編譯需要 Python 3.10+、MSVC 2022 Build Tools、Windows SDK 與外部提供的 **fpsdk_20210311b**。這些是開發者的編譯需求。請將 SDK 解壓縮到儲存庫之外並替換範例路徑。
 
 從此儲存庫安裝 Python 套件，再編譯原生元件：
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## 驗證與限制
 
-**已驗證：**本機通過 52 項 Python 測試與 21 項原生測試。Python CI 在 Windows、Linux 及 Python 3.10、3.12、3.14 上通過。於獲准的測試工作階段中，FL 26.1.7.5653 的回呼確認了 Play → Pause → Play → Stop。Linux CI 不驗證 FL 外掛。
+**已驗證：**本機通過 77 項 Python 測試與 27 項原生測試。Python CI 在 Windows、Linux 及 Python 3.10、3.12、3.14 上通過。於獲准的測試工作階段中，FL 26.1.7.5653 的回呼確認了 Play → Pause → Play → Stop。Linux CI 不驗證 FL 外掛。
 
-**尚未實作：**Mixer、通道、專案編輯，公開事件串流，無限制探索與自動更新介接元件。音訊影響及其他組建版本尚未測試。最新佇列鎖修正通過受控慢用戶端測試，但尚未重新載入 FL；編譯版本與實際測試版本的雜湊分別記錄。這不代表整個 SDK 已獲認證。
+尚未實作 Mixer、通道、專案編輯與公開事件。自適應選擇使用已實作介面的設定檔；經驗證的更新支援暫存與回復。其他介面合約需要經驗證的設定檔，不保證無限制探索或相容所有組建版本。新 DLL 通過受控測試，但尚未重新載入 FL。請參閱相容性指南。
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

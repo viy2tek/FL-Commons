@@ -40,8 +40,22 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dll", required=True, type=Path)
     parser.add_argument("--launch", action="store_true")
+    parser.add_argument('--updates', choices=('manual', 'automatic'), help='Persist the update policy before preparing the native session')
+    parser.add_argument('--installation', type=Path, help='Select a discovered FL64.exe installation; defaults to the latest')
     args = parser.parse_args()
     inventory = inspect_host()
+    if args.installation:
+        matches = [entry for entry in inventory['installations']
+                   if Path(entry['path']).resolve() == args.installation.resolve() and Path(entry['path']).name.lower() == 'fl64.exe']
+        if len(matches) != 1:
+            parser.error('Select exactly one discovered standard FL64.exe installation')
+        inventory = dict(inventory, installations=matches, selected_version=matches[0]['version'])
+    if inventory['processes']:
+        parser.error('FL is already running; close it normally before setup')
+    from fl_commons.updates import connection_updates, apply_pending
+    update = connection_updates(args.updates)
+    if update.get('status') == 'staged':
+        apply_pending()
     try:
         profile = select_install_profile(inventory['selected_version'], current_profiles())
     except OperationError as error:
@@ -49,7 +63,8 @@ def main():
     if inventory["processes"]:
         parser.error("FL is already running; close it normally before setup")
     candidates = [entry for entry in inventory["installations"]
-                  if Path(entry["path"]).name.lower() == "fl64.exe"]
+                  if Path(entry["path"]).name.lower() == "fl64.exe" and
+                  entry.get('version', inventory['selected_version']) == inventory['selected_version']]
     if len(candidates) != 1:
         parser.error("Expected exactly one latest standard FL64.exe")
     executable = Path(candidates[0]["path"])

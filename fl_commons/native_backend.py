@@ -75,7 +75,7 @@ class NativeBackend:
         if item['status'] == 'temporarily_unavailable':
             raise OperationError('capability_unavailable', item['reason'])
         try:
-            return client.command(method, params)
+            return getattr(client, '_dispatch_command', client.command)(method, params)
         except APIError as error:
             raise OperationError(error.code, str(error)) from error
 

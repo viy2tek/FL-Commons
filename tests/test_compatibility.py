@@ -24,6 +24,7 @@ class CompatibilityTests(unittest.TestCase):
         for mutate in (lambda p: p.update(adapter_id='eval'),
                        lambda p: p['operations'].update({'shell.run': 'shell.run'}),
                        lambda p: p['operations'].update({'transport.stop': 'unsafe.selector'}),
+                       lambda p: p.update(host_api_versions=[2147483648]),
                        lambda p: p.update(host_api_versions=[True])):
             profile = copy.deepcopy(builtin_profiles()[0])
             mutate(profile)

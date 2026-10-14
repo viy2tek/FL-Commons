@@ -5,7 +5,16 @@ from unittest.mock import patch
 
 
 class HostTests(unittest.TestCase):
-    def test_only_latest_version_and_its_processes_are_selected(self):
+    def test_older_or_unresolved_running_fl_is_not_hidden_from_activation_guard(self):
+        from fl_commons.host import _select_installations
+        data = {'installations': [{'path': 'C:/FL25/FL64.exe', 'version': '25.0.0.1'},
+                                  {'path': 'C:/FL26/FL64.exe', 'version': '26.1.7.5653'}],
+                'processes': [{'pid': 7, 'path': 'C:/FL25/FL64.exe', 'name': 'FL64', 'identity_verified': True},
+                              {'pid': 8, 'path': None, 'name': 'FL64', 'identity_verified': False}]}
+        inventory = _select_installations(data)
+        self.assertEqual(len(inventory['installations']), 2)
+        self.assertEqual(len(inventory['processes']), 2)
+    def test_all_modern_installations_are_retained_with_a_latest_default(self):
         from fl_commons.host import inspect_host
         data = {'installations': [
                     {'path': 'C:\\old\\FL64.exe', 'version': '26.1.9.9999'},
@@ -18,8 +27,8 @@ class HostTests(unittest.TestCase):
         with patch('fl_commons.host.sys.platform', 'win32'), patch(
                 'fl_commons.host.subprocess.run', return_value=SimpleNamespace(returncode=0, stdout=json.dumps(data), stderr='')):
             result = inspect_host()
-        self.assertEqual([item['version'] for item in result['installations']], ['26.1.10.5653'] * 2)
-        self.assertEqual([item['pid'] for item in result['processes']], [2])
+        self.assertEqual([item['version'] for item in result['installations']], ['26.1.9.9999', '26.1.10.5653', '26.1.10.5653'])
+        self.assertEqual([item['pid'] for item in result['processes']], [1, 2, 3])
         self.assertEqual(result['selected_version'], '26.1.10.5653')
 
     def test_unknown_version_never_causes_silent_older_selection(self):

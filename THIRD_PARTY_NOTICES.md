@@ -9,6 +9,7 @@ FL binaries, samples, artwork, API stubs or decompiled code is copied into it.
 | Mido | Optional MIDI port interface | [MIT](https://github.com/mido/mido/blob/main/LICENSE) |
 | python-rtmidi | Optional Mido backend/native MIDI bindings | [MIT and bundled RtMidi notices](https://github.com/SpotlightKid/python-rtmidi/blob/master/LICENSE.md) |
 | setuptools | Build environment only | [MIT](https://github.com/pypa/setuptools/blob/main/LICENSE) |
+| cryptography | Optional Ed25519 update verification, installed separately | [Apache 2.0 or BSD](https://github.com/pyca/cryptography/blob/main/LICENSE) |
 | REA / rea-agents | Optional research tooling, not a runtime dependency | [MIT](https://github.com/morluto/rea/blob/main/LICENSE) |
 | Ghidra | Optional separate research provider | [Apache 2.0 and component licenses](https://github.com/NationalSecurityAgency/ghidra/blob/master/LICENSE) |
 | FL Studio MIDI Scripting | Documented proprietary-host interface | [Official reference](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/midi_scripting.htm), [Image-Line EULA](https://www.image-line.com/image-line-software-eula) |

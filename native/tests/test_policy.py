@@ -22,6 +22,8 @@ class PolicyTests(unittest.TestCase):
                 return subprocess.check_output([str(binary), str(root), str(version)], timeout=5).strip()
             self.assertEqual(probe(25000000), b'7')
             self.assertEqual(probe(25000001), b'0')
+            save_native_policy(DIRECTORY / 'api_host.exe', profile, 25000000, destination)
+            self.assertEqual(probe(25000000), b'0')
             destination.write_bytes(b'corrupt')
             self.assertEqual(probe(25000000), b'0')
             self.assertEqual(probe(26001007), b'0')

@@ -18,7 +18,7 @@ transport.stop
 
 ## เริ่มต้นใช้งาน
 
-**เป้าหมายความเข้ากันได้: FL Studio 25/26 เป็นต้นไปบน Windows x64** ที่เก็บนี้แจกซอร์สโค้ด การคอมไพล์ต้องใช้ Python 3.10+, MSVC 2022 Build Tools, Windows SDK และ **fpsdk_20210311b** จากภายนอก ซึ่งเป็นข้อกำหนดสำหรับนักพัฒนาที่คอมไพล์เอง ให้แตก SDK นอกที่เก็บและเปลี่ยนพาธ ส่วนเนทีฟที่เผยแพร่ยังรับเฉพาะ build ที่ทดสอบ การเลือกแบบปรับตัวและแพ็กเกจพร้อมใช้ยังไม่ได้พัฒนา
+**เป้าหมายความเข้ากันได้: FL Studio 25/26 เป็นต้นไปบน Windows x64** ที่เก็บนี้แจกซอร์สโค้ด การคอมไพล์ต้องใช้ Python 3.10+, MSVC 2022 Build Tools, Windows SDK และ **fpsdk_20210311b** จากภายนอก ซึ่งเป็นข้อกำหนดสำหรับนักพัฒนาที่คอมไพล์เอง ให้แตก SDK นอกที่เก็บและเปลี่ยนพาธ
 
 ติดตั้งแพ็กเกจ Python จากที่เก็บโค้ดนี้ แล้วคอมไพล์ส่วนเนทีฟ:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## การตรวจสอบและข้อจำกัด
 
-**ตรวจสอบแล้ว:** ผ่านการทดสอบ Python 52 รายการและเนทีฟ 21 รายการในเครื่อง Python CI ผ่านบน Windows และ Linux ด้วย Python 3.10, 3.12 และ 3.14 callback ของ FL 26.1.7.5653 ยืนยัน Play → Pause → Play → Stop ในเซสชันทดสอบที่ได้รับอนุญาต CI บน Linux ไม่ได้ตรวจสอบปลั๊กอิน FL
+**ตรวจสอบแล้ว:** ผ่านการทดสอบ Python 77 รายการและเนทีฟ 27 รายการในเครื่อง Python CI ผ่านบน Windows และ Linux ด้วย Python 3.10, 3.12 และ 3.14 callback ของ FL 26.1.7.5653 ยืนยัน Play → Pause → Play → Stop ในเซสชันทดสอบที่ได้รับอนุญาต CI บน Linux ไม่ได้ตรวจสอบปลั๊กอิน FL
 
-**ยังไม่มี:** การแก้ไข Mixer/แชนเนล/โปรเจกต์ สตรีมเหตุการณ์สาธารณะ การค้นพบแบบไม่จำกัด และอัปเดตอะแดปเตอร์อัตโนมัติ ยังไม่ได้ทดสอบผลต่อเสียงหรือ build อื่น การแก้ล็อกคิวล่าสุดผ่านการทดสอบควบคุมกับไคลเอนต์ที่ช้า แต่ยังไม่ได้โหลดใหม่ใน FL โดยบันทึกแฮชของไฟล์ที่คอมไพล์และที่ทดสอบจริงแยกกัน นี่ไม่ใช่การรับรอง SDK ทั้งหมด
+ยังไม่มีการแก้ไข Mixer/แชนเนล/โปรเจกต์และเหตุการณ์สาธารณะ การเลือกแบบปรับตัวใช้โปรไฟล์อินเทอร์เฟซที่พัฒนาแล้ว การอัปเดตที่ตรวจสอบรองรับ staging และ rollback สัญญาอื่นต้องมีโปรไฟล์ที่ตรวจสอบแล้ว ไม่อ้างว่าค้นพบได้ไม่จำกัดหรือรองรับทุก build DLL ใหม่ผ่านการทดสอบควบคุมแต่ยังไม่โหลดใหม่ใน FL ดูคู่มือความเข้ากันได้
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

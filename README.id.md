@@ -18,7 +18,7 @@ transport.stop
 
 ## Mulai cepat
 
-**Target kompatibilitas: FL Studio 25/26 dan setelahnya pada Windows x64.** Repositori ini masih mendistribusikan kode sumber. Build memerlukan Python 3.10+, MSVC 2022 Build Tools, Windows SDK dan **fpsdk_20210311b** eksternal. Ini persyaratan build untuk pengembang. Ekstrak SDK di luar repositori dan ganti jalur. Komponen native yang diterbitkan masih hanya menerima build yang diuji; pemilihan adaptif dan distribusi siap pakai belum diimplementasikan.
+**Target kompatibilitas: FL Studio 25/26 dan setelahnya pada Windows x64.** Repositori ini masih mendistribusikan kode sumber. Build memerlukan Python 3.10+, MSVC 2022 Build Tools, Windows SDK dan **fpsdk_20210311b** eksternal. Ini persyaratan build untuk pengembang. Ekstrak SDK di luar repositori dan ganti jalur.
 
 Instal paket Python dari repositori ini, lalu kompilasi komponen native:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Validasi dan batasan
 
-**Terverifikasi:** 52 tes Python dan 21 tes native lulus secara lokal. Python CI lulus pada Windows dan Linux dengan Python 3.10, 3.12, dan 3.14. Callback FL 26.1.7.5653 mengonfirmasi Play → Pause → Play → Stop dalam sesi tes yang diizinkan. CI Linux tidak memvalidasi plugin FL.
+**Terverifikasi:** 77 tes Python dan 27 tes native lulus secara lokal. Python CI lulus pada Windows dan Linux dengan Python 3.10, 3.12, dan 3.14. Callback FL 26.1.7.5653 mengonfirmasi Play → Pause → Play → Stop dalam sesi tes yang diizinkan. CI Linux tidak memvalidasi plugin FL.
 
-**Belum tersedia:** penyuntingan Mixer/channel/proyek, aliran peristiwa publik, penemuan tanpa batas, dan pembaruan adapter otomatis. Dampak audio dan build lain belum diuji. Perbaikan kunci antrean terbaru lulus tes terkendali dengan klien lambat, tetapi belum dimuat ulang di FL; hash hasil kompilasi dan hasil uji langsung dicatat terpisah. Ini bukan sertifikasi seluruh SDK.
+Penyuntingan Mixer/channel/proyek dan peristiwa publik belum tersedia. Pemilihan adaptif memakai profil antarmuka yang diimplementasikan; pembaruan terverifikasi mendukung staging dan rollback. Kontrak lain memerlukan profil terverifikasi; penemuan tanpa batas atau kompatibilitas semua build tidak diklaim. DLL baru lulus tes terkendali tetapi belum dimuat ulang di FL. Lihat panduan kompatibilitas.
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ Tautan berikut memberikan dokumentasi lebih lanjut, saat ini sebagian besar dala
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

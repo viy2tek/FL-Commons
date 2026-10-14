@@ -18,7 +18,7 @@ transport.stop
 
 ## البدء السريع
 
-**هدف التوافق: FL Studio 25/26 وما بعدها على Windows x64.** يوزع المستودع حاليًا الكود المصدري. يتطلب البناء Python 3.10+ وMSVC 2022 Build Tools وWindows SDK و**fpsdk_20210311b** الخارجي. هذه متطلبات بناء للمطورين. فك ضغط SDK خارج المستودع واستبدل المسارات. المكوّن الأصلي المنشور ما زال يقبل إصدار البناء المختبر فقط؛ الاختيار التكيفي والتوزيع الجاهز للاستخدام لم يُنفذا بعد.
+**هدف التوافق: FL Studio 25/26 وما بعدها على Windows x64.** يوزع المستودع حاليًا الكود المصدري. يتطلب البناء Python 3.10+ وMSVC 2022 Build Tools وWindows SDK و**fpsdk_20210311b** الخارجي. هذه متطلبات بناء للمطورين. فك ضغط SDK خارج المستودع واستبدل المسارات.
 
 ثبّت حزمة Python من هذا المستودع ثم ابنِ المكوّن الأصلي:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## التحقق والحدود
 
-**تم التحقق:** نجح محليًا 52 اختبار Python و21 اختبارًا أصليًا. نجح Python CI على Windows وLinux مع Python 3.10 و3.12 و3.14. أكدت استدعاءات FL 26.1.7.5653 تسلسل Play → Pause → Play → Stop في جلسة اختبار مصرح بها. لا يتحقق CI على Linux من إضافة FL.
+**تم التحقق:** نجح محليًا 77 اختبار Python و27 اختبارًا أصليًا. نجح Python CI على Windows وLinux مع Python 3.10 و3.12 و3.14. أكدت استدعاءات FL 26.1.7.5653 تسلسل Play → Pause → Play → Stop في جلسة اختبار مصرح بها. لا يتحقق CI على Linux من إضافة FL.
 
-**غير منفذ:** تعديل Mixer والقنوات والمشاريع، وتدفقات الأحداث العامة، والاكتشاف غير المقيد، وتحديث المحولات تلقائيًا. لم تُختبر آثار الصوت أو إصدارات البناء الأخرى. نجح أحدث إصلاح لقفل الطابور في اختبار مضبوط لعميل بطيء، لكنه لم يُحمّل مجددًا في FL؛ تُسجل بصمتا النسخة المبنية والمختبرة فعليًا بصورة منفصلة. هذا ليس اعتمادًا لكامل SDK.
+لم يُنفذ تعديل Mixer والقنوات والمشاريع أو الأحداث العامة. يستخدم الاختيار التكيفي ملفات تعريف لواجهات منفذة؛ وتدعم التحديثات المتحقق منها staging وrollback. تحتاج العقود الأخرى ملفات تعريف متحققًا منها؛ لا يُدّعى اكتشاف غير محدود أو توافق مع كل الإصدارات. نجحت DLL الجديدة في اختبارات مضبوطة لكنها لم تُحمّل مجددًا في FL. راجع دليل التوافق.
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

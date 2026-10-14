@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-14 — compatibilidade adaptativa e atualizações verificadas
+
+- Registro de interfaces e resolução por operação substituem bloqueios Python por build completo.
+- Componente novo reporta build real e aplica política DPAPI vinculada à DLL/HostVersion.
+- Updater com Ed25519, canal de perfis público assinado, limites, staging, replay floor e rollback.
+- Política manual/automática no SDK, launcher e CLI; DLL carregada nunca é substituída.
+- Perfis não inventam funções; source nativo exige compilação local com SDK externo.
+- Testes controlados são separados da evidência real; recarga da DLL nova permanece pendente.
+
 ## 2026-10-14 — transporte real e SDK público
 
 - Corrigida ordem do factory oficial: Host antes de Tag, com assert de compilação.

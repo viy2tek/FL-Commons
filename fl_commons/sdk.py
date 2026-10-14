@@ -122,6 +122,16 @@ class Client:
         return self.command('sdk.catalog', params)
 
     def command(self, method, params=None):
+        if self.port == 3211:
+            from .native_backend import NativeBackend
+            from .errors import OperationError
+            try:
+                return NativeBackend(self).command(method, {} if params is None else params)
+            except OperationError as error:
+                raise APIError(409, error.code, str(error)) from error
+        return self._dispatch_command(method, params)
+
+    def _dispatch_command(self, method, params=None):
         response = self._request('POST', '/v1/commands',
                                  {'method': method, 'params': {} if params is None else params})
         if "result" not in response:

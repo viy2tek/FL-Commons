@@ -18,7 +18,7 @@ transport.stop
 
 ## Bắt đầu nhanh
 
-**Mục tiêu tương thích: FL Studio 25/26 trở lên trên Windows x64.** Kho mã hiện phân phối mã nguồn. Biên dịch cần Python 3.10+, MSVC 2022 Build Tools, Windows SDK và **fpsdk_20210311b** bên ngoài. Đây là yêu cầu biên dịch dành cho nhà phát triển. Giải nén SDK ngoài kho mã và thay đường dẫn. Thành phần native đã phát hành vẫn chỉ chấp nhận build đã thử; lựa chọn thích ứng và bản phân phối dùng ngay chưa được triển khai.
+**Mục tiêu tương thích: FL Studio 25/26 trở lên trên Windows x64.** Kho mã hiện phân phối mã nguồn. Biên dịch cần Python 3.10+, MSVC 2022 Build Tools, Windows SDK và **fpsdk_20210311b** bên ngoài. Đây là yêu cầu biên dịch dành cho nhà phát triển. Giải nén SDK ngoài kho mã và thay đường dẫn.
 
 Cài gói Python từ kho mã này, rồi biên dịch thành phần native:
 
@@ -65,9 +65,9 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Kiểm chứng và giới hạn
 
-**Đã kiểm chứng:** 52 kiểm thử Python và 21 kiểm thử native đã đạt cục bộ. Python CI đạt trên Windows, Linux và Python 3.10, 3.12, 3.14. Callback FL 26.1.7.5653 xác nhận Play → Pause → Play → Stop trong phiên kiểm thử được cho phép. CI Linux không kiểm chứng plugin FL.
+**Đã kiểm chứng:** 77 kiểm thử Python và 27 kiểm thử native đã đạt cục bộ. Python CI đạt trên Windows, Linux và Python 3.10, 3.12, 3.14. Callback FL 26.1.7.5653 xác nhận Play → Pause → Play → Stop trong phiên kiểm thử được cho phép. CI Linux không kiểm chứng plugin FL.
 
-**Chưa triển khai:** sửa Mixer/kênh/dự án, luồng sự kiện công khai, khám phá không giới hạn và tự cập nhật adapter. Ảnh hưởng âm thanh và các build khác chưa được thử. Bản sửa khóa hàng đợi mới nhất đạt thử nghiệm có kiểm soát với client chậm nhưng chưa được nạp lại vào FL; hash bản biên dịch và bản thử thực tế được ghi riêng. Đây không phải chứng nhận toàn bộ SDK.
+Chưa triển khai sửa Mixer/kênh/dự án và sự kiện công khai. Lựa chọn thích ứng dùng hồ sơ giao diện đã triển khai; cập nhật xác minh hỗ trợ staging và rollback. Hợp đồng khác cần hồ sơ đã kiểm chứng; không tuyên bố khám phá vô hạn hay tương thích mọi build. DLL mới đạt thử nghiệm có kiểm soát nhưng chưa nạp lại trong FL. Xem hướng dẫn tương thích.
 
 [Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
@@ -83,7 +83,7 @@ Các liên kết dưới đây dẫn đến tài liệu chi tiết, hiện chủ
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
-- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
+- [Adaptive compatibility and trusted updates](docs/adaptive-compatibility.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

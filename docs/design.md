@@ -5,6 +5,9 @@ It exposes documented, verified capabilities through a stable public contract.
 Developers define their own integrations; API domains and data contracts are
 general-purpose. Transport is an initial proof, not the complete product scope.
 See [mission and capability needs](master-spec-alignment.md).
+The implemented registry, protected native policy and signed updater are described
+in [adaptive compatibility](adaptive-compatibility.md). The initial signed channel
+contains evidenced host API profiles; it does not certify all target builds.
 Project snapshots, stable object identities, dependency diagnostics, musical data
 models and verified operations must distinguish live state, saved files and
 inaccessible data. Preserve native integration, optional MIDI and the compatibility

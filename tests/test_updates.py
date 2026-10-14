@@ -7,8 +7,11 @@ from pathlib import Path
 import tempfile
 import unittest
 import zipfile
-from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-from cryptography.hazmat.primitives import serialization
+try:
+    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+    from cryptography.hazmat.primitives import serialization
+except ImportError:
+    raise unittest.SkipTest('Install fl-commons[updates] to run signature tests')
 from fl_commons.compatibility import builtin_profiles
 from fl_commons.errors import OperationError
 from fl_commons.updates import verify_manifest, stage_update, activate_update, rollback_update, _lock, _Redirect, _allowed_url, set_update_policy, check_updates, active_profiles
@@ -159,3 +162,18 @@ class UpdateTests(unittest.TestCase):
         manifest = verify_manifest(signed(payload(data, kind='native_source')), ROOT, 0, 1000)
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(OperationError):
             stage_update(manifest, Path(directory), lambda url, limit: data)
+
+    def test_original_runtime_activates_for_a_new_process_without_install_scripts(self):
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w') as archive:
+            archive.writestr('fl_commons/__init__.py', '__version__ = "0.1.0"')
+            archive.writestr('fl_commons/__main__.py', 'print("verified runtime fixture")')
+        data = buffer.getvalue()
+        document = payload(data, kind='python_runtime')
+        document['artifacts'][0]['runtime_contract'] = 'flcommons-python-v1'
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            root.joinpath('root.json').write_text(json.dumps({'fixture': base64.b64encode(ROOT['fixture']).decode()}))
+            stage = stage_update(verify_manifest(signed(document), ROOT, 0, 1000), root / 'staged', lambda u, n: data)
+            self.assertEqual(activate_update(stage, root, lambda p: True, False)['status'], 'active')
+            self.assertTrue((stage / 'runtime/fl_commons/__main__.py').is_file())

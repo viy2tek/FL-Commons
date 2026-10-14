@@ -29,7 +29,7 @@ def validate_profile(data):
                  data['runtime_contract'] == CONTRACT and
                  type(data['host_major_min']) is int and data['host_major_min'] >= 25 and
                  isinstance(data['host_api_versions'], list) and bool(data['host_api_versions']) and
-                 all(type(v) is int and 25000000 <= v <= 65535000000 for v in data['host_api_versions']) and
+                 all(type(v) is int and 25000000 <= v <= 2147483647 for v in data['host_api_versions']) and
                  isinstance(data['operations'], dict) and bool(data['operations']) and
                  all(k in METHODS and v == k for k, v in data['operations'].items()) and
                  isinstance(data['tested_builds'], list) and
@@ -64,7 +64,10 @@ def host_api_from_build(build):
     version = version_tuple(build)
     if not version or version[0] < 25 or version[1] >= 1000 or version[2] >= 1000:
         raise OperationError('version_unverified', 'Host API version cannot be derived from this installation')
-    return version[0] * 1000000 + version[1] * 1000 + version[2]
+    value = version[0] * 1000000 + version[1] * 1000 + version[2]
+    if value > 2147483647:
+        raise OperationError('version_unverified', 'Host API version exceeds the documented SDK integer range')
+    return value
 
 
 def select_install_profile(build, profiles):
