@@ -13,7 +13,7 @@
 
 </div>
 
-FL Studio 用のツールを自由に作りましょう。FL Commons は FL Studio Time Machine、Universal Project Search、FL Studio Self-Healing、Universal DAW Translator などに必要なプロジェクトデータ、状態、操作の提供を目指しています。これらのアプリケーションは将来の目標で、まだ実装されていません。
+FL Commons は FL Studio との連携のための独立したコミュニティ API です。安定した公開契約を通じて、文書化され検証された機能を提供します。開発者は独自の連携を定義できます。
 
 ## 現在の機能
 
@@ -27,7 +27,7 @@ transport.stop
 
 ## クイックスタート
 
-ネイティブ連携には Windows x64、FL Studio **26.1.7.5653**、Python 3.10+、MSVC 2022 Build Tools、Windows SDK、別途提供される **fpsdk_20210311b** が必要です。他の FL ビルドは拒否されます。SDK はリポジトリの外に展開し、例のパスを置き換えてください。
+**互換性の目標：Windows x64 上の FL Studio 25/26 以降。** 現在このリポジトリはソースコードを配布しています。ビルドには Python 3.10+、MSVC 2022 Build Tools、Windows SDK、外部提供の **fpsdk_20210311b** が必要です。これらは開発者向けのビルド要件です。SDK をリポジトリ外へ展開し、例のパスを置き換えてください。公開済みのネイティブコンポーネントはまだ検証したビルドのみを受け付けます。適応的選択とすぐに使える配布パッケージは未実装です。
 
 このリポジトリから Python パッケージをインストールし、ネイティブコンポーネントをビルドします：
 

@@ -13,7 +13,7 @@
 
 </div>
 
-Buat alat Anda sendiri untuk FL Studio. FL Commons bertujuan menyediakan data proyek, status, dan operasi untuk FL Studio Time Machine, Universal Project Search, FL Studio Self-Healing, Universal DAW Translator, dan lainnya. Aplikasi tersebut adalah tujuan masa depan, belum diimplementasikan.
+FL Commons adalah API komunitas independen untuk integrasi dengan FL Studio. API menyediakan kemampuan terdokumentasi dan terverifikasi melalui kontrak publik yang stabil. Pengembang menentukan integrasi mereka sendiri.
 
 ## Kemampuan saat ini
 
@@ -27,7 +27,7 @@ transport.stop
 
 ## Mulai cepat
 
-Integrasi native memerlukan Windows x64, FL Studio **26.1.7.5653**, Python 3.10+, MSVC 2022 Build Tools, Windows SDK, serta **fpsdk_20210311b** yang disediakan terpisah. Build FL lainnya ditolak. Ekstrak SDK di luar repositori dan ganti jalur contoh.
+**Target kompatibilitas: FL Studio 25/26 dan setelahnya pada Windows x64.** Repositori ini masih mendistribusikan kode sumber. Build memerlukan Python 3.10+, MSVC 2022 Build Tools, Windows SDK dan **fpsdk_20210311b** eksternal. Ini persyaratan build untuk pengembang. Ekstrak SDK di luar repositori dan ganti jalur. Komponen native yang diterbitkan masih hanya menerima build yang diuji; pemilihan adaptif dan distribusi siap pakai belum diimplementasikan.
 
 Instal paket Python dari repositori ini, lalu kompilasi komponen native:
 

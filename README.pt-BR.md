@@ -13,7 +13,7 @@
 
 </div>
 
-Crie suas próprias ferramentas para o FL Studio. O FL Commons busca fornecer dados de projeto, estado e operações para FL Studio Time Machine, Universal Project Search, FL Studio Self-Healing, Universal DAW Translator e outras integrações. Esses aplicativos são objetivos futuros, ainda não implementados.
+O FL Commons é uma API comunitária independente para integrações com o FL Studio. Expõe capacidades documentadas e verificadas por um contrato público estável. Os programadores definem suas próprias integrações.
 
 ## Capacidades atuais
 
@@ -27,7 +27,7 @@ transport.stop
 
 ## Início rápido
 
-A integração nativa exige Windows x64, FL Studio **26.1.7.5653**, Python 3.10+, MSVC 2022 Build Tools, Windows SDK e o **fpsdk_20210311b** fornecido externamente. Outros builds do FL são recusados. Extraia o SDK fora do repositório. Substitua os caminhos de exemplo pelos seus.
+**Alvo de compatibilidade: FL Studio 25/26 em diante, em Windows x64.** O repositório atualmente distribui código-fonte. Compilar exige Python 3.10+, MSVC 2022 Build Tools, Windows SDK e o **fpsdk_20210311b** fornecido externamente. São requisitos de compilação para desenvolvedores. Extraia o SDK fora do repositório e substitua os caminhos de exemplo. O componente nativo publicado ainda aceita apenas o build testado; seleção adaptativa e distribuição pronta para uso não estão implementadas.
 
 Instale o pacote Python deste repositório e compile o componente nativo:
 

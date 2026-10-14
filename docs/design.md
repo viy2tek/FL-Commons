@@ -1,15 +1,15 @@
 # FL Commons v0.1 — API architecture, 2026-10-14
 
-The user confirmed that the API must provide the foundations for FL Studio Time
-Machine, Universal Project Search, FL Studio Self-Healing, Universal DAW Translator
-and other community tools of comparable scope. These use cases guide API domains
-and data contracts; transport is an initial proof, not the complete product scope.
+FL Commons is an independent community API for integrations with FL Studio.
+It exposes documented, verified capabilities through a stable public contract.
+Developers define their own integrations; API domains and data contracts are
+general-purpose. Transport is an initial proof, not the complete product scope.
 See [mission and capability needs](master-spec-alignment.md).
-Future project snapshots, stable object identities, dependency diagnostics,
-musical data models and verified operations must distinguish live state, saved
-files and inaccessible data. No full access, restoration or translation fidelity
-is certified by this design. Preserve native integration, optional MIDI and the
-latest build target; keep application implementations outside the initial API MVP.
+Project snapshots, stable object identities, dependency diagnostics, musical data
+models and verified operations must distinguish live state, saved files and
+inaccessible data. Preserve native integration, optional MIDI and the latest build
+target scope: FL Studio 25/26 and later. The product is the API; consumers are
+external integrations. See [adaptive compatibility design](adaptive-compatibility-design.md).
 
 The experimental native/plugin.cpp now hosts a separate loopback endpoint
 inside FL, with the external official SDK. Python Client connects directly on

@@ -13,7 +13,7 @@
 
 </div>
 
-FL Studio için kendi araçlarınızı geliştirin. FL Commons, FL Studio Time Machine, Universal Project Search, FL Studio Self-Healing, Universal DAW Translator ve diğer uygulamalar için proje verileri, durum ve işlemler sunmayı hedefler. Bu uygulamalar henüz gerçekleştirilmemiş gelecek hedefleridir.
+FL Commons, FL Studio entegrasyonları için bağımsız bir topluluk API’sidir. Belgelenmiş ve doğrulanmış yetenekleri kararlı bir genel sözleşmeyle sunar. Geliştiriciler kendi entegrasyonlarını tanımlar.
 
 ## Mevcut yetenekler
 
@@ -27,7 +27,7 @@ transport.stop
 
 ## Hızlı başlangıç
 
-Yerel entegrasyon Windows x64, FL Studio **26.1.7.5653**, Python 3.10+, MSVC 2022 Build Tools, Windows SDK ve haricen sağlanan **fpsdk_20210311b** gerektirir. Diğer FL derlemeleri reddedilir. SDK’yı deponun dışına çıkarın ve örnek yolları değiştirin.
+**Uyumluluk hedefi: Windows x64 üzerinde FL Studio 25/26 ve sonrası.** Depo şu an kaynak kod dağıtır. Derleme Python 3.10+, MSVC 2022 Build Tools, Windows SDK ve harici **fpsdk_20210311b** gerektirir. Bunlar geliştirici derleme gereksinimleridir. SDK’yı depo dışına çıkarın ve örnek yolları değiştirin. Yayımlanan yerel bileşen hâlâ yalnızca test edilen derlemeyi kabul eder; adaptif seçim ve kullanıma hazır dağıtım uygulanmadı.
 
 Python paketini bu depodan kurun, ardından yerel bileşeni derleyin:
 
