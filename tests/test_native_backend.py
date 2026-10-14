@@ -16,7 +16,9 @@ class NativeFixture:
     def status(self):
         return {"connected": self.connected, "mode": "fl-native",
                 "fl_version": "26.1.7.5653", "session_id": "a" * 32,
-                "gui_responsive": True, "compatibility": "experimental"}
+                "gui_responsive": True, "compatibility": "experimental",
+                "runtime_contract": "fpsdk-20210311b-v1", "host_version_raw": 26001007,
+                "state_callback_observed": True}
 
     def capabilities(self):
         return {"capabilities": ["transport.state", "transport.play_pause", "transport.stop"],
@@ -34,6 +36,25 @@ class NativeFixture:
 
 
 class NativeBackendTests(unittest.TestCase):
+    def test_changed_build_uses_matching_host_contract(self):
+        from fl_commons.native_backend import NativeBackend
+        native = NativeFixture()
+        observed = dict(native.status(), fl_version='26.1.7.9999')
+        with patch.object(native, 'status', return_value=observed):
+            backend = NativeBackend(native)
+            self.assertEqual(backend.capabilities()['capability_details']['transport.stop']['status'], 'experimental')
+            backend.command('transport.stop', {})
+        self.assertEqual(len(native.calls), 1)
+
+    def test_partial_degradation_keeps_read_available(self):
+        from fl_commons.native_backend import NativeBackend
+        native = NativeFixture()
+        backend = NativeBackend(native)
+        native.capabilities = lambda: {'capabilities': ['transport.state']}
+        self.assertEqual(backend.capabilities()['capabilities'], ['transport.state'])
+        with self.assertRaises(Exception):
+            backend.command('transport.stop', {})
+        self.assertEqual(native.calls, [])
     def setUp(self):
         from fl_commons.native_backend import NativeBackend
         self.native = NativeFixture()
@@ -81,7 +102,7 @@ class NativeBackendTests(unittest.TestCase):
         with patch.object(self.native, "status", return_value=dict(self.native.status(), fl_version="99.0.0.1")):
             with self.assertRaises(APIError) as caught:
                 self.client.transport.stop()
-            self.assertEqual(caught.exception.code, "version_unverified")
+            self.assertEqual(caught.exception.code, "capability_unavailable")
         with self.assertRaises(APIError):
             self.client.command("transport.stop", {"arbitrary": 1})
         with self.assertRaises(APIError):

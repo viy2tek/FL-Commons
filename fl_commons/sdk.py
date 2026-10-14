@@ -13,7 +13,7 @@ class APIError(RuntimeError):
 
 class Client:
     @classmethod
-    def connect(cls):
+    def connect(cls, update_policy="manual"):
         """Connect directly to the official native plugin, without a Python server."""
         try:
             client = cls.from_native_session()
@@ -22,8 +22,12 @@ class Client:
         status = client.status()
         if not status["connected"]:
             raise APIError(0, "not_connected", "Load FL Commons API inside FL Studio")
-        if status.get("fl_version") != "26.1.7.5653":
-            raise APIError(409, "version_unverified", "Native adapter build is unverified")
+        if update_policy not in ('manual', 'automatic'):
+            raise ValueError('Update policy must be manual or automatic')
+        from .native_backend import NativeBackend
+        details = NativeBackend(client)._details(status, client.capabilities().get('capabilities', []))
+        if not any(item['adapter_id'] for item in details.values()):
+            raise APIError(409, "capability_unavailable", "No adapter matches the observed native contract")
         return client
 
     @property
@@ -93,6 +97,9 @@ class Client:
         return {"connected": profile.get("mode") == "fl-native", "mode": profile.get("mode"),
                 "fl_version": profile.get("fl_build"), "session_id": profile.get("session_id"),
                 "gui_responsive": profile.get("gui_responsive", False),
+                "host_version_raw": profile.get('host_version_raw'),
+                "state_callback_observed": profile.get('state_callback_observed', False),
+                "runtime_contract": profile.get('runtime_contract', 'fpsdk-20210311b-v1' if profile.get('profile') == 'fpsdk-20210311b-transport-v1' else None),
                 "compatibility": "experimental"}
 
     def capabilities(self):

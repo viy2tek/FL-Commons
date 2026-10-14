@@ -28,7 +28,9 @@ class LocalApi {
         bool started = false, done = false, cancelled = false;
     };
     SOCKET listener_ = INVALID_SOCKET, active_ = INVALID_SOCKET;
-    std::string token_, mode_;
+    std::string token_, mode_, build_;
+    bool abi_available_;
+    unsigned methods_;
     unsigned short port_ = 0;
     DWORD owner_ = GetCurrentThreadId();
     std::atomic<bool> stopping_{false};
@@ -72,17 +74,28 @@ class LocalApi {
                           static_cast<unsigned char>(i < value.size() ? value[i] : 0);
         return difference == 0;
     }
+    std::string available_methods() const {
+        std::string json = "[";
+        const char* names[] = {"transport.state", "transport.play_pause", "transport.stop"};
+        for (unsigned i = 0; i < 3; ++i) if (abi_available_ && (methods_ & (1u << i))) {
+            if (json.size() > 1) json += ",";
+            json += std::string("\"") + names[i] + "\"";
+        }
+        return json + "]";
+    }
     std::string compatibility() const {
         const auto idle = last_idle_.load();
         const auto age = idle ? std::to_string(GetTickCount64() - idle) : "null";
         return "{\"profile\":\"fpsdk-20210311b-transport-v1\",\"mode\":\"" + mode_ +
             "\",\"session_id\":\"" + session_id_ + "\",\"fl_build\":" +
-            (mode_ == "fl-native" ? "\"26.1.7.5653\"" : "null") +
+            (mode_ == "fl-native" ? "\"" + build_ + "\"" : "null") +
+            ",\"runtime_contract\":" + (abi_available_ ? "\"fpsdk-20210311b-v1\"" : "null") +
             ",\"host_version_raw\":" + std::to_string(host_version_) +
             ",\"gui_dispatch_observed\":" + (idle ? "true" : "false") +
             ",\"gui_responsive\":" + (idle && GetTickCount64() - idle <= 2000 ? "true" : "false") +
             ",\"last_gui_idle_age_ms\":" + age +
             ",\"state_callback_observed\":" + (playing_.load() >= 0 ? "true" : "false") +
+            ",\"available_operations\":" + available_methods() +
             ",\"fl_runtime_validated\":false,\"automatic_updates\":false,\"operations\":["
             "{\"method\":\"transport.state\",\"interface\":\"FPD_SetPlaying\","
             "\"validation\":\"unverified\",\"experimental\":true,\"automatically_probed\":false},"
@@ -149,7 +162,9 @@ class LocalApi {
             if (path == "/v1/health") respond(socket, 200, "{\"status\":\"ok\"}");
             else if (path == "/v1/capabilities") respond(socket, 200,
                 "{\"api_version\":\"0.1.0\",\"mode\":\"" + mode_ + "\",\"compatibility\":\"unverified\","
-                "\"target_build\":\"26.1.7.5653\",\"capabilities\":[\"transport.state\",\"transport.play_pause\",\"transport.stop\"]}");
+                "\"target_build\":" + (mode_ == "fl-native" ? "\"" + build_ + "\"" : "null") +
+                ",\"runtime_contract\":" + (abi_available_ ? "\"fpsdk-20210311b-v1\"" : "null") +
+                ",\"capabilities\":" + available_methods() + "}");
             else if (path == "/v1/compatibility") respond(socket, 200, compatibility());
             else error(socket, 404, "not_found");
             return;
@@ -175,6 +190,9 @@ class LocalApi {
             error(socket, 400, "invalid_body"); return;
         }
         const std::string method = match[1];
+        if (!abi_available_) { error(socket, 409, "capability_unavailable"); return; }
+        unsigned bit = method == "transport.state" ? 1 : method == "transport.play_pause" ? 2 : method == "transport.stop" ? 4 : 0;
+        if (bit && !(methods_ & bit)) { error(socket, 409, "capability_unavailable"); return; }
         if (method == "transport.state") {
             const int state = playing_.load();
             respond(socket, 200, std::string("{\"result\":{\"playing\":") +
@@ -226,8 +244,12 @@ class LocalApi {
         }
     }
 public:
-    LocalApi(std::string token, unsigned short port, std::string mode, int host_version = 0)
-        : token_(std::move(token)), mode_(std::move(mode)), host_version_(host_version) {
+    LocalApi(std::string token, unsigned short port, std::string mode, int host_version = 0,
+             std::string build = "", bool abi_available = true, unsigned methods = 7)
+        : token_(std::move(token)), mode_(std::move(mode)), build_(std::move(build)),
+          abi_available_(abi_available), methods_(methods), host_version_(host_version) {
+        if (mode_ == "fl-native" && !std::regex_match(build_, std::regex("[0-9]{1,5}(\\.[0-9]{1,5}){3}")))
+            throw std::runtime_error("Invalid native build metadata");
         if (token_.size() < 32 || token_.size() > 256 ||
             token_.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-") != std::string::npos)
             throw std::runtime_error("Token must contain 32..256 ASCII letters, digits, underscore or hyphen");

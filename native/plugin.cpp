@@ -4,23 +4,25 @@
 #include <vector>
 #include "transport_commands.h"
 #include "session_token.h"
+#include "compatibility_policy.h"
 #pragma comment(lib, "version.lib")
 
 namespace {
-bool supported_process() {
+std::string process_build() {
     wchar_t path[32768];
     DWORD count = GetModuleFileNameW(nullptr, path, 32768);
-    if (!count || count >= 32768) return false;
+    if (!count || count >= 32768) return {};
     const std::wstring name = std::wstring(path).substr(std::wstring(path).find_last_of(L"\\/") + 1);
-    if (_wcsicmp(name.c_str(), L"FL64.exe") && _wcsicmp(name.c_str(), L"FL64 (scaled).exe")) return false;
+    if (_wcsicmp(name.c_str(), L"FL64.exe") && _wcsicmp(name.c_str(), L"FL64 (scaled).exe")) return {};
     DWORD ignored = 0, length = GetFileVersionInfoSizeW(path, &ignored);
-    if (!length) return false;
+    if (!length) return {};
     std::vector<char> bytes(length);
-    if (!GetFileVersionInfoW(path, 0, length, bytes.data())) return false;
+    if (!GetFileVersionInfoW(path, 0, length, bytes.data())) return {};
     VS_FIXEDFILEINFO* info = nullptr; UINT size = 0;
-    if (!VerQueryValueW(bytes.data(), L"\\", reinterpret_cast<void**>(&info), &size) || size < sizeof(*info)) return false;
-    return info->dwSignature == 0xfeef04bd && info->dwProductVersionMS == MAKELONG(1, 26) &&
-           info->dwProductVersionLS == MAKELONG(5653, 7);
+    if (!VerQueryValueW(bytes.data(), L"\\", reinterpret_cast<void**>(&info), &size) || size < sizeof(*info)) return {};
+    if (info->dwSignature != 0xfeef04bd || HIWORD(info->dwProductVersionMS) < 25) return {};
+    return std::to_string(HIWORD(info->dwProductVersionMS)) + "." + std::to_string(LOWORD(info->dwProductVersionMS)) +
+           "." + std::to_string(HIWORD(info->dwProductVersionLS)) + "." + std::to_string(LOWORD(info->dwProductVersionLS));
 }
 std::string token_from_environment() {
     return flcommons::native_token();
@@ -34,8 +36,8 @@ class Plugin final : public TFruityPlug {
     const DWORD gui_ = GetCurrentThreadId();
     flcommons::LocalApi api_;
 public:
-    Plugin(TPluginTag tag, TFruityPlugHost& host)
-        : host_(host), api_(token_from_environment(), 3211, "fl-native", host.HostVersion) {
+    Plugin(TPluginTag tag, TFruityPlugHost& host, const std::string& build, unsigned methods)
+        : host_(host), api_(token_from_environment(), 3211, "fl-native", host.HostVersion, build, true, methods) {
         HostTag = tag; Info = &plugin_info;
         host_.Dispatcher(HostTag, FHD_WantIdle, 0, 2);
     }
@@ -84,7 +86,12 @@ public:
 }
 
 extern "C" __declspec(dllexport) TFruityPlug* __stdcall CreatePlugInstance(TFruityPlugHost* host, TPluginTag tag) {
-    if (!host || !supported_process()) return nullptr;
-    try { return new Plugin(tag, *host); }
+    const auto build = process_build();
+    if (!host || build.empty()) return nullptr;
+    try {
+        const unsigned methods = flcommons::native_allowed_methods(host->HostVersion);
+        if (!methods) return nullptr;
+        return new Plugin(tag, *host, build, methods);
+    }
     catch (...) { return nullptr; }
 }

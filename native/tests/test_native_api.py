@@ -26,6 +26,45 @@ def launch(milliseconds=30000, mode="active"):
 
 
 class NativeAPI(unittest.TestCase):
+    def test_real_build_is_reported_without_exact_version_gate(self):
+        process, port = launch(800, 'build-changed')
+        try:
+            report = Client(TOKEN, port=port).compatibility()
+            self.assertEqual(report['fl_build'], '26.1.7.9999')
+            self.assertEqual(report['runtime_contract'], 'fpsdk-20210311b-v1')
+        finally:
+            process.terminate()
+            process.communicate(timeout=3)
+
+    def test_unverified_contract_disables_host_dispatch(self):
+        process, port = launch(600, 'unknown-abi')
+        try:
+            client = Client(TOKEN, port=port)
+            self.assertEqual(client.capabilities()['capabilities'], [])
+            with self.assertRaises(APIError) as caught:
+                client.command('transport.stop')
+            self.assertEqual(caught.exception.code, 'capability_unavailable')
+            output = process.communicate(timeout=3)[0]
+            self.assertIn('calls=0', output)
+        finally:
+            if process.poll() is None:
+                process.terminate()
+                process.communicate(timeout=3)
+
+    def test_read_only_probe_never_dispatches_transport(self):
+        process, port = launch(500, 'build-changed')
+        try:
+            client = Client(TOKEN, port=port)
+            client.health()
+            client.compatibility()
+            client.capabilities()
+            client.command('transport.state')
+            self.assertIn('calls=0', process.communicate(timeout=3)[0])
+        finally:
+            if process.poll() is None:
+                process.terminate()
+                process.communicate(timeout=3)
+
     @classmethod
     def setUpClass(cls):
         cls.process, cls.port = launch()

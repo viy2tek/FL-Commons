@@ -4,7 +4,12 @@
 #include <cassert>
 int main(int argc, char** argv) {
     if (argc != 4) return 2;
-    flcommons::LocalApi api(argv[1], 0, "controlled-host");
+    const std::string mode = argv[3];
+    const bool native = mode == "build-changed" || mode == "unknown-abi";
+    flcommons::LocalApi api(argv[1], 0, native ? "fl-native" : "controlled-host",
+        native ? (mode == "unknown-abi" ? 25000000 : 26001007) : 0,
+        native ? (mode == "unknown-abi" ? "25.0.0.1" : "26.1.7.9999") : "",
+        mode != "unknown-abi");
     bool blocked = false;
     std::thread wrong_thread([&] {
         try { api.idle([](const std::string&) { return "{}"; }); }

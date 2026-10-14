@@ -11,9 +11,8 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from fl_commons.host import inspect_host
 from fl_commons.session import save_token, session_path
-
-TARGET = "26.1.7.5653"
-
+from fl_commons.compatibility import builtin_profiles, select_install_profile, save_native_policy, host_api_from_build
+from fl_commons.errors import OperationError
 
 def install_plugin(binary, installation):
     binary, installation = Path(binary).resolve(strict=True), Path(installation).resolve(strict=True)
@@ -43,8 +42,10 @@ def main():
     parser.add_argument("--launch", action="store_true")
     args = parser.parse_args()
     inventory = inspect_host()
-    if inventory["selected_version"] != TARGET:
-        parser.error("Latest installation does not match the tested build target; no older fallback")
+    try:
+        profile = select_install_profile(inventory['selected_version'], builtin_profiles())
+    except OperationError as error:
+        parser.error(str(error))
     if inventory["processes"]:
         parser.error("FL is already running; close it normally before setup")
     candidates = [entry for entry in inventory["installations"]
@@ -56,6 +57,8 @@ def main():
     if args.launch and not re.fullmatch(r"[a-zA-Z0-9_-]{32,256}", token):
         parser.error("FL_COMMONS_TOKEN is invalid")
     destination = install_plugin(args.dll, executable.parent)
+    save_native_policy(destination, profile, host_api_from_build(inventory['selected_version']),
+                       session_path().with_name('native-policy.bin'))
     print("Installed: " + str(destination))
     print("SHA256: " + hashlib.sha256(destination.read_bytes()).hexdigest())
     if args.launch:

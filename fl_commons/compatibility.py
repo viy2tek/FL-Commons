@@ -2,6 +2,9 @@
 import json
 from pathlib import Path
 import re
+import hashlib
+import os
+import tempfile
 
 from .errors import OperationError
 
@@ -41,12 +44,52 @@ def builtin_profiles():
     return [validate_profile(profile) for profile in data]
 
 
+def host_api_from_build(build):
+    version = version_tuple(build)
+    if not version or version[0] < 25 or version[1] >= 1000 or version[2] >= 1000:
+        raise OperationError('version_unverified', 'Host API version cannot be derived from this installation')
+    return version[0] * 1000000 + version[1] * 1000 + version[2]
+
+
+def select_install_profile(build, profiles):
+    host_api = host_api_from_build(build)
+    for profile in profiles:
+        validate_profile(profile)
+        if version_tuple(build)[0] >= profile['host_major_min'] and host_api in profile['host_api_versions']:
+            return profile
+    raise OperationError('capability_unavailable', 'No verified native ABI profile is available; a compatibility update is required')
+
+
+def save_native_policy(binary, profile, host_api, path=None):
+    from .session import _dpapi, session_path
+    validate_profile(profile)
+    if host_api not in profile['host_api_versions']:
+        raise OperationError('invalid_profile', 'Host API is not covered by this profile')
+    digest = hashlib.sha256(Path(binary).read_bytes()).hexdigest()
+    mask = sum(1 << METHODS.index(method) for method in profile['operations'])
+    record = f'FLCommons-policy-v1\n{digest}\n{CONTRACT}\n{host_api}\n{mask}\n'.encode('ascii')
+    destination = Path(path) if path is not None else session_path().with_name('native-policy.bin')
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(dir=destination.parent, delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(_dpapi(record, True))
+        os.replace(temporary, destination)
+    finally:
+        if temporary is not None and temporary.exists():
+            temporary.unlink()
+    return destination
+
+
 def resolve_operation(method, observed, profiles):
     unavailable = {'adapter_id': None, 'method': method, 'status': 'unsupported',
                    'reason': 'No implemented adapter matches the observed interface',
                    'requirements': {}, 'tested_builds': []}
     version = version_tuple(observed.get('fl_build'))
     if method not in METHODS or version is None or version[0] < 25:
+        return unavailable
+    if type(observed.get('host_version_raw')) is not int or observed['host_version_raw'] // 1000000 != version[0]:
         return unavailable
     candidates = []
     for profile in profiles:

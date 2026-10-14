@@ -33,3 +33,6 @@ Write-Output "Built $dllPath; loading in FL still requires separate validation."
 $tokenTestPath = Join-Path $PSScriptRoot 'tests/token_provider_test.cpp'
 & cl.exe /nologo /std:c++17 /EHsc /W4 /O2 /MT $tokenTestPath "/Fe:$outputPath/token_provider_test.exe" "/Fo:$outputPath/token_provider_test.obj"
 if ($LASTEXITCODE -ne 0) { throw 'Token provider compilation failed' }
+$policyTestPath = Join-Path $PSScriptRoot 'tests/policy_provider_test.cpp'
+& cl.exe /nologo /std:c++17 /EHsc /W4 /O2 /MT $policyTestPath "/Fe:$outputPath/policy_provider_test.exe" "/Fo:$outputPath/policy_provider_test.obj"
+if ($LASTEXITCODE -ne 0) { throw 'Policy provider compilation failed' }
