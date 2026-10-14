@@ -44,6 +44,22 @@ def builtin_profiles():
     return [validate_profile(profile) for profile in data]
 
 
+def current_profiles():
+    from .updates import active_profiles
+    original = builtin_profiles()
+    try:
+        updated = active_profiles()
+    except (OperationError, OSError):
+        return original
+    replaced = {version for profile in updated for version in profile['host_api_versions']}
+    retained = []
+    for profile in original:
+        versions = [version for version in profile['host_api_versions'] if version not in replaced]
+        if versions:
+            retained.append(dict(profile, host_api_versions=versions))
+    return updated + retained
+
+
 def host_api_from_build(build):
     version = version_tuple(build)
     if not version or version[0] < 25 or version[1] >= 1000 or version[2] >= 1000:

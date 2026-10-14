@@ -13,6 +13,7 @@ license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
 keywords = ["api", "fl-studio", "community"]
 
 [project.optional-dependencies]
+updates = ["cryptography>=46,<51"]
 midi = ["mido>=1.3.3,<2", "python-rtmidi>=1.5.8,<2"]
 
 [project.scripts]

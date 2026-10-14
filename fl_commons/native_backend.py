@@ -1,7 +1,7 @@
 """Closed, no-retry adapter to the separately loaded official native plugin."""
 from .errors import OperationError
 from .sdk import APIError, Client
-from .compatibility import METHODS, builtin_profiles, resolve_operation
+from .compatibility import METHODS, current_profiles, resolve_operation
 
 class NativeBackend:
     def __init__(self, client=None, profiles=None):
@@ -44,7 +44,7 @@ class NativeBackend:
         observed = dict(status, fl_build=status.get('fl_version'))
         details = {}
         for method in METHODS:
-            item = resolve_operation(method, observed, self.profiles if self.profiles is not None else builtin_profiles())
+            item = resolve_operation(method, observed, self.profiles if self.profiles is not None else current_profiles())
             if not status.get('connected'):
                 item.update(status='temporarily_unavailable', reason='Native component is disconnected')
             elif method not in advertised:

@@ -11,7 +11,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from fl_commons.host import inspect_host
 from fl_commons.session import save_token, session_path
-from fl_commons.compatibility import builtin_profiles, select_install_profile, save_native_policy, host_api_from_build
+from fl_commons.compatibility import current_profiles, select_install_profile, save_native_policy, host_api_from_build
 from fl_commons.errors import OperationError
 
 def install_plugin(binary, installation):
@@ -43,7 +43,7 @@ def main():
     args = parser.parse_args()
     inventory = inspect_host()
     try:
-        profile = select_install_profile(inventory['selected_version'], builtin_profiles())
+        profile = select_install_profile(inventory['selected_version'], current_profiles())
     except OperationError as error:
         parser.error(str(error))
     if inventory["processes"]:

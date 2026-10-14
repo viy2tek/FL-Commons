@@ -13,8 +13,12 @@ class APIError(RuntimeError):
 
 class Client:
     @classmethod
-    def connect(cls, update_policy="manual"):
+    def connect(cls, update_policy=None):
         """Connect directly to the official native plugin, without a Python server."""
+        if update_policy not in (None, 'manual', 'automatic'):
+            raise ValueError('Update policy must be manual or automatic')
+        from .updates import connection_updates
+        update_diagnostic = connection_updates(update_policy)
         try:
             client = cls.from_native_session()
         except (OSError, ValueError) as error:
@@ -22,12 +26,11 @@ class Client:
         status = client.status()
         if not status["connected"]:
             raise APIError(0, "not_connected", "Load FL Commons API inside FL Studio")
-        if update_policy not in ('manual', 'automatic'):
-            raise ValueError('Update policy must be manual or automatic')
         from .native_backend import NativeBackend
         details = NativeBackend(client)._details(status, client.capabilities().get('capabilities', []))
         if not any(item['adapter_id'] for item in details.values()):
             raise APIError(409, "capability_unavailable", "No adapter matches the observed native contract")
+        client.update_diagnostic = update_diagnostic
         return client
 
     @property
