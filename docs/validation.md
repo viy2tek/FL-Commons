@@ -1,5 +1,16 @@
 # Validação desta entrega
 
+## Estado atual: compatibilidade adaptativa, 14/10/2026
+
+79 testes Python e 28 testes nativos passaram localmente. O pacote atualizado foi
+instalado e leu o estado autenticado da DLL nova no FL 26.1.7.5653. Play/Pause e
+Stop foram confirmados por callbacks na sessão de teste autorizada; estado final
+parado. Evidências: [leitura e canal assinado](../research/adaptive-api-smoke.json)
+e [transporte da DLL nova](../research/adaptive-native-transport-probe.json).
+Perfis e atualizações assinadas estão implementados. Não há certificação real de
+FL25 ou de outros builds. As seções abaixo preservam registros históricos,
+incluindo restrições e pendências que foram posteriormente resolvidas.
+
 ## Catálogo amplo de interfaces, 14/10/2026
 
 **42 testes Python passaram**, incluindo filtro/paginação do catálogo, validação

@@ -43,8 +43,8 @@ com detecção e adaptação por capacidades. Isso substitui a decisão anterior
 de atender somente ao build mais recente instalado. MIDI continua opcional
 e o contrato nativo oficial é preservado. O teste real no build 26.1.7.5653
 permanece evidência daquele ambiente, não requisito definitivo do produto.
-O runtime atual ainda contém a restrição exata; a implementação adaptativa
-está descrita no [desenho para revisão](adaptive-compatibility-design.md).
+O runtime agora seleciona por contrato e perfil verificado; o build testado
+permanece evidência separada. Veja [compatibilidade adaptativa](adaptive-compatibility.md).
 
 O código original já tem licença MIT. O PDF deixa a licença final em aberto
 (páginas 14 e 16). Não houve mudança de licença nem autorização de redistribuição
@@ -56,8 +56,9 @@ O registro de perfis, resolução por contrato, seleção de capacidades, polít
 manual/automática e updater assinado com staging/rollback estão implementados.
 O canal público inicial distribui perfis originais assinados. A evidência real
 continua limitada ao teste registrado; os fixtures FL25 não viram certificação.
-Veja [comportamento entregue](adaptive-compatibility.md). A DLL nova foi compilada
-e testada em host controlado; recarga no FL real está pendente.
+Veja [comportamento entregue](adaptive-compatibility.md). A DLL nova foi carregada
+no FL 26.1.7.5653: leitura autenticada, Play/Pause e Stop foram confirmados por
+callbacks na sessão de teste autorizada. Outros builds não foram testados.
 
 ## Comparação histórica com o código e as evidências
 
