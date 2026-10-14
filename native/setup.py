@@ -52,10 +52,13 @@ def main():
         inventory = dict(inventory, installations=matches, selected_version=matches[0]['version'])
     if inventory['processes']:
         parser.error('FL is already running; close it normally before setup')
-    from fl_commons.updates import connection_updates, apply_pending
+    from fl_commons.updates import connection_updates, apply_pending, update_status
     update = connection_updates(args.updates)
-    if update.get('status') == 'staged':
-        apply_pending()
+    try:
+        if update_status()['policy'] == 'automatic':
+            apply_pending()
+    except (OperationError, OSError) as error:
+        print('Update unavailable; preserving known compatibility: ' + getattr(error, 'code', 'update_io_error'))
     try:
         profile = select_install_profile(inventory['selected_version'], current_profiles())
     except OperationError as error:

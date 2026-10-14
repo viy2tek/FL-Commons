@@ -9,6 +9,22 @@ from native.setup import install_plugin
 
 
 class SetupTests(unittest.TestCase):
+    def test_cached_automatic_update_is_applied_and_failure_does_not_break_known_install(self):
+        from native.setup import main
+        from fl_commons.errors import OperationError
+        inventory = {'selected_version': '26.1.7.5653', 'processes': [],
+                     'installations': [{'path': 'C:/FL26/FL64.exe'}]}
+        with patch('sys.argv', ['setup.py', '--dll', 'fixture.dll']), \
+             patch('native.setup.inspect_host', return_value=inventory), \
+             patch('fl_commons.updates.connection_updates', return_value={'status': 'not_checked'}), \
+             patch('fl_commons.updates.update_status', return_value={'policy': 'automatic'}), \
+             patch('fl_commons.updates.apply_pending', side_effect=OperationError('update_integrity', 'bad cached update')) as apply, \
+             patch('native.setup.install_plugin', return_value=Path('fixture.dll')) as install, \
+             patch('native.setup.save_native_policy'), \
+             patch('pathlib.Path.read_bytes', return_value=b'MZ'), contextlib.redirect_stdout(io.StringIO()):
+            main()
+        self.assertEqual(apply.call_count, 1)
+        self.assertEqual(install.call_count, 1)
     def test_explicit_modern_installation_is_selected_instead_of_latest(self):
         from native.setup import main
         from fl_commons.compatibility import builtin_profiles
