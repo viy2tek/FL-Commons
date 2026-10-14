@@ -13,7 +13,7 @@
 
 </div>
 
-FL Studio용 도구를 직접 만드세요. FL Commons는 FL Studio Time Machine, Universal Project Search, FL Studio Self-Healing, Universal DAW Translator 등에 필요한 프로젝트 데이터, 상태 및 작업을 제공하는 것을 목표로 합니다. 이 애플리케이션들은 아직 구현되지 않은 미래 목표입니다.
+FL Commons는 FL Studio 통합을 위한 독립적인 커뮤니티 API입니다. 안정적인 공개 계약을 통해 문서화되고 검증된 기능을 제공합니다. 개발자가 자신의 통합을 정의합니다.
 
 ## 현재 기능
 
@@ -27,7 +27,7 @@ transport.stop
 
 ## 빠른 시작
 
-네이티브 통합에는 Windows x64, FL Studio **26.1.7.5653**, Python 3.10+, MSVC 2022 Build Tools, Windows SDK 및 외부에서 제공되는 **fpsdk_20210311b**가 필요합니다. 다른 FL 빌드는 거부됩니다. SDK를 저장소 밖에 압축 해제하고 예제 경로를 변경하세요.
+**호환성 목표: Windows x64의 FL Studio 25/26 이상.** 현재 저장소는 소스 코드를 배포합니다. 빌드에는 Python 3.10+, MSVC 2022 Build Tools, Windows SDK 및 외부 제공 **fpsdk_20210311b**가 필요합니다. 이는 개발자 빌드 요구 사항입니다. SDK를 저장소 밖에 압축 해제하고 예제 경로를 바꾸세요. 배포된 네이티브 구성 요소는 아직 테스트된 빌드만 허용합니다. 적응형 선택과 바로 사용할 수 있는 배포 패키지는 미구현입니다.
 
 이 저장소에서 Python 패키지를 설치한 다음 네이티브 구성 요소를 빌드하세요:
 

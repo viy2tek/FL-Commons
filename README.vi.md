@@ -13,7 +13,7 @@
 
 </div>
 
-Tạo công cụ riêng cho FL Studio. FL Commons hướng tới cung cấp dữ liệu dự án, trạng thái và thao tác cho FL Studio Time Machine, Universal Project Search, FL Studio Self-Healing, Universal DAW Translator và các ứng dụng khác. Đây là mục tiêu tương lai, chưa được triển khai.
+FL Commons là API cộng đồng độc lập dành cho tích hợp với FL Studio. API cung cấp khả năng có tài liệu và đã kiểm chứng thông qua hợp đồng công khai ổn định. Nhà phát triển tự xác định các tích hợp của mình.
 
 ## Khả năng hiện tại
 
@@ -27,7 +27,7 @@ transport.stop
 
 ## Bắt đầu nhanh
 
-Tích hợp native cần Windows x64, FL Studio **26.1.7.5653**, Python 3.10+, MSVC 2022 Build Tools, Windows SDK và **fpsdk_20210311b** được cung cấp riêng. Các bản build FL khác bị từ chối. Giải nén SDK ngoài kho mã và thay đường dẫn mẫu.
+**Mục tiêu tương thích: FL Studio 25/26 trở lên trên Windows x64.** Kho mã hiện phân phối mã nguồn. Biên dịch cần Python 3.10+, MSVC 2022 Build Tools, Windows SDK và **fpsdk_20210311b** bên ngoài. Đây là yêu cầu biên dịch dành cho nhà phát triển. Giải nén SDK ngoài kho mã và thay đường dẫn. Thành phần native đã phát hành vẫn chỉ chấp nhận build đã thử; lựa chọn thích ứng và bản phân phối dùng ngay chưa được triển khai.
 
 Cài gói Python từ kho mã này, rồi biên dịch thành phần native:
 

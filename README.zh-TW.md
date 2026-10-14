@@ -13,7 +13,7 @@
 
 </div>
 
-為 FL Studio 建立自己的工具。FL Commons 希望提供專案資料、狀態與操作，支援 FL Studio Time Machine、Universal Project Search、FL Studio Self-Healing、Universal DAW Translator 等應用。這些應用是未來目標，目前尚未實作。
+FL Commons 是供 FL Studio 整合使用的獨立社群 API。它透過穩定的公開合約提供有文件支持且經過驗證的能力。開發者自行定義自己的整合。
 
 ## 目前能力
 
@@ -27,7 +27,7 @@ transport.stop
 
 ## 快速開始
 
-原生整合需要 Windows x64、FL Studio **26.1.7.5653**、Python 3.10+、MSVC 2022 Build Tools、Windows SDK 與另外提供的 **fpsdk_20210311b**。其他 FL 組建版本會被拒絕。請將 SDK 解壓縮至儲存庫之外，並替換範例路徑。
+**相容性目標：Windows x64 上的 FL Studio 25/26 及後續版本。** 此儲存庫目前散布原始碼。編譯需要 Python 3.10+、MSVC 2022 Build Tools、Windows SDK 與外部提供的 **fpsdk_20210311b**。這些是開發者的編譯需求。請將 SDK 解壓縮到儲存庫之外並替換範例路徑。已發布的原生元件仍僅接受已測試的組建版本；自適應選擇與即裝即用的發行套件尚未實作。
 
 從此儲存庫安裝 Python 套件，再編譯原生元件：
 
