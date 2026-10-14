@@ -1,0 +1,710 @@
+{
+  "scope": "sdk_host_dispatcher_declarations_only",
+  "target_build": "26.1.7.5653",
+  "fl_runtime_tested": false,
+  "source": {
+    "archive": "fpsdk_20210311b.zip",
+    "sha256": "a29c5bfbfd576ab9798574920ce911a7b4fe68c2aa7d11bec2546cdf4a6b35b1",
+    "member": "source/c/fp_plugclass.h",
+    "member_sha256": "d04e33ac267801da0d5e8492271f8fc11ce4182dca7b8cfa1e6ec49226275444"
+  },
+  "domain_classification": "analyst_inference",
+  "entries": [
+    {
+      "symbol": "FHD_ParamMenu",
+      "id": 0,
+      "domain": "parameters",
+      "state": "declared_unverified",
+      "line": 713,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetParamMenuFlags",
+      "id": 1,
+      "domain": "parameters",
+      "state": "obsolete",
+      "line": 714,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_EditorResized",
+      "id": 2,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 715,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_NamesChanged",
+      "id": 3,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 716,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ActivateMIDI",
+      "id": 4,
+      "domain": "midi_optional",
+      "state": "declared_unverified",
+      "line": 717,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_WantMIDIInput",
+      "id": 5,
+      "domain": "midi_optional",
+      "state": "declared_unverified",
+      "line": 718,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_WantMIDITick",
+      "id": 6,
+      "domain": "midi_optional",
+      "state": "declared_unverified",
+      "line": 719,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_LocatePlugin",
+      "id": 7,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 720,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_KillAutomation",
+      "id": 8,
+      "domain": "parameters",
+      "state": "declared_unverified",
+      "line": 721,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SetNumPresets",
+      "id": 9,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 722,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SetNewName",
+      "id": 10,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 723,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_VSTiIdle",
+      "id": 11,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 724,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SelectChanSample",
+      "id": 12,
+      "domain": "files",
+      "state": "declared_unverified",
+      "line": 725,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_WantIdle",
+      "id": 13,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 726,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_LocateDataFile",
+      "id": 14,
+      "domain": "files",
+      "state": "declared_unverified",
+      "line": 727,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ShowPlugSelector",
+      "id": 15,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 728,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_TicksToTime",
+      "id": 16,
+      "domain": "transport",
+      "state": "declared_unverified",
+      "line": 729,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_AddNotesToPR",
+      "id": 17,
+      "domain": "notes",
+      "state": "declared_unverified",
+      "line": 730,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetParamMenuEntry",
+      "id": 18,
+      "domain": "parameters",
+      "state": "declared_unverified",
+      "line": 731,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_MsgBox",
+      "id": 19,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 732,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_NoteOn",
+      "id": 20,
+      "domain": "notes",
+      "state": "declared_unverified",
+      "line": 733,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_NoteOff",
+      "id": 21,
+      "domain": "notes",
+      "state": "declared_unverified",
+      "line": 734,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_OnHint_Direct",
+      "id": 22,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 735,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SetNewColor",
+      "id": 23,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 736,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetInstance",
+      "id": 24,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 737,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_KillIntCtrl",
+      "id": 25,
+      "domain": "parameters",
+      "state": "declared_unverified",
+      "line": 738,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_CheckProdCode",
+      "id": 26,
+      "domain": "plugin_lifecycle_ui",
+      "state": "reserved",
+      "line": 739,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SetNumParams",
+      "id": 27,
+      "domain": "parameters",
+      "state": "declared_unverified",
+      "line": 740,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_PackDataFile",
+      "id": 28,
+      "domain": "files",
+      "state": "declared_unverified",
+      "line": 741,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetPath",
+      "id": 29,
+      "domain": "files",
+      "state": "declared_unverified",
+      "line": 742,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SetLatency",
+      "id": 30,
+      "domain": "audio_mixer",
+      "state": "declared_unverified",
+      "line": 743,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_CallDownloader",
+      "id": 31,
+      "domain": "content",
+      "state": "declared_unverified",
+      "line": 744,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_EditSample",
+      "id": 32,
+      "domain": "files",
+      "state": "declared_unverified",
+      "line": 745,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SetThreadSafe",
+      "id": 33,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 746,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SmartDisable",
+      "id": 34,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 747,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SetUID",
+      "id": 35,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 748,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetMixingTime",
+      "id": 36,
+      "domain": "transport",
+      "state": "declared_unverified",
+      "line": 749,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetPlaybackTime",
+      "id": 37,
+      "domain": "transport",
+      "state": "declared_unverified",
+      "line": 750,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetSelTime",
+      "id": 38,
+      "domain": "transport",
+      "state": "declared_unverified",
+      "line": 751,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetTimeMul",
+      "id": 39,
+      "domain": "transport",
+      "state": "declared_unverified",
+      "line": 752,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_Captionize",
+      "id": 40,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 753,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SendSysEx",
+      "id": 41,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 754,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_LoadAudioClip",
+      "id": 42,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 755,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_LoadInChannel",
+      "id": 43,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 756,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ShowInBrowser",
+      "id": 44,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 757,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_DebugLogMsg",
+      "id": 45,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 758,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetMainFormHandle",
+      "id": 46,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 759,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetProjDataPath",
+      "id": 47,
+      "domain": "files",
+      "state": "obsolete",
+      "line": 760,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SetDirty",
+      "id": 48,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 761,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_AddToRecent",
+      "id": 49,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 762,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetNumInOut",
+      "id": 50,
+      "domain": "audio_mixer",
+      "state": "declared_unverified",
+      "line": 763,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetInName",
+      "id": 51,
+      "domain": "audio_mixer",
+      "state": "declared_unverified",
+      "line": 764,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetOutName",
+      "id": 52,
+      "domain": "audio_mixer",
+      "state": "declared_unverified",
+      "line": 765,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ShowEditor",
+      "id": 53,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 766,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_FloatAutomation",
+      "id": 54,
+      "domain": "parameters",
+      "state": "declared_unverified",
+      "line": 767,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ShowSettings",
+      "id": 55,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 768,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_NoteOnOff",
+      "id": 56,
+      "domain": "notes",
+      "state": "declared_unverified",
+      "line": 769,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ShowPicker",
+      "id": 57,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 770,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetIdleOverflow",
+      "id": 58,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 771,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ModalIdle",
+      "id": 59,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 772,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_RenderProject",
+      "id": 60,
+      "domain": "project",
+      "state": "declared_unverified",
+      "line": 773,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetProjectInfo",
+      "id": 61,
+      "domain": "project",
+      "state": "declared_unverified",
+      "line": 774,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ForceDetached",
+      "id": 62,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 775,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_StartDrag",
+      "id": 63,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 776,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_EndDrag",
+      "id": 64,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 777,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_PreviewKey",
+      "id": 65,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 778,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_RenderWindowBitmap",
+      "id": 66,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 779,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_UpdateStealKBFocus",
+      "id": 67,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 780,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetPluginMenuMode",
+      "id": 69,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 782,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_OpenTool",
+      "id": 70,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 783,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetPathManager",
+      "id": 71,
+      "domain": "files",
+      "state": "declared_unverified",
+      "line": 784,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_RegisterSideInput",
+      "id": 72,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 785,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_RegisterSideOutput",
+      "id": 73,
+      "domain": "audio_mixer",
+      "state": "declared_unverified",
+      "line": 786,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ReportError",
+      "id": 74,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 788,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ShowStandardParamMenu",
+      "id": 75,
+      "domain": "parameters",
+      "state": "declared_unverified",
+      "line": 789,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetContextInfo",
+      "id": 76,
+      "domain": "track_context",
+      "state": "declared_unverified",
+      "line": 790,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_SetContextInfo",
+      "id": 77,
+      "domain": "track_context",
+      "state": "declared_unverified",
+      "line": 791,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetExternalMedia",
+      "id": 78,
+      "domain": "content",
+      "state": "declared_unverified",
+      "line": 792,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_Transport",
+      "id": 79,
+      "domain": "transport",
+      "state": "contract_tested",
+      "line": 793,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_DownloadMissing",
+      "id": 80,
+      "domain": "content",
+      "state": "declared_unverified",
+      "line": 794,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_DownloadFinished",
+      "id": 81,
+      "domain": "content",
+      "state": "declared_unverified",
+      "line": 795,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_DebugBuild",
+      "id": 82,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 796,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_PickVoiceColor",
+      "id": 83,
+      "domain": "notes",
+      "state": "declared_unverified",
+      "line": 797,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetColorRGBValue",
+      "id": 84,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 798,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_ShowException",
+      "id": 85,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 799,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_GetTranslationMoFile",
+      "id": 86,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 800,
+      "callable_via_api": false
+    },
+    {
+      "symbol": "FHD_PresetSelected",
+      "id": 87,
+      "domain": "plugin_lifecycle_ui",
+      "state": "declared_unverified",
+      "line": 801,
+      "callable_via_api": false
+    }
+  ]
+}
