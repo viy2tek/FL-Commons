@@ -5,6 +5,8 @@ etapa anterior foi resolvido pelo arquivo recebido. Veja [avaliação](sdk-asses
 e [módulo nativo](../native/README.md). O alvo agora é apenas a versão mais recente
 instalada; os registros multiversão abaixo são históricos, não escopo de suporte.
 
+## Registro histórico anterior ao recebimento do SDK
+
 Pesquisa em 14/10/2026. Esta tabela é uma delimitação de evidências, não uma
 promessa de controle completo nem prova de inexistência de outras interfaces.
 Nenhum endpoint de controle foi habilitado a partir de suposição ou pseudocódigo.

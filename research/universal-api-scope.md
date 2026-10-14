@@ -54,7 +54,7 @@ como comandos arbitrários. O catálogo não é descoberta automática do execut
 1. Componente nativo e HTTP implementados para o build-alvo, com testes de fila,
    autenticação e encerramento em host controlado. Carregamento e recusa de pedido
    sem token observados no FL. Leitura autenticada de compatibilidade e estado
-   inicial comprovada; faltam controle e ciclo de vida completo no FL.
+   inicial e Play-Pause-Play-Stop comprovados; falta ciclo de vida completo no FL.
    Veja [componente nativo](../native/README.md).
 2. Validar operações reais por domínio: primeiro estado/transporte, depois projeto,
    contexto de mixer, parâmetros e notas. A thread HTTP não chamará o host diretamente.

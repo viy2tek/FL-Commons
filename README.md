@@ -1,7 +1,7 @@
 # FL Commons
 
 Investigação atual: [mapa de interfaces para uma API ampla](research/universal-api-scope.md).
-O SDK pode consultar o catálogo de evidências com `client.sdk_catalog()`;
+O SDK conectado ao Core pode consultar o catálogo com `client.sdk_catalog()`;
 declarações ainda não são operações de controle habilitadas.
 
 **Uma API comunitária independente para integração com FL Studio.**
@@ -116,6 +116,8 @@ comandos musicais. Veja [interfaces pesquisadas](research/direct-interface-map.m
 ```text
 fl_commons/          API, servidor HTTP, SDK e CLI; MIDI opcional separado
   hardware/          callbacks da integração MIDI opcional
+flcommons/          nome público FLStudio para o cliente Python
+native/             componente HTTP dentro do FL, build externo e testes Windows
 flcommons_common/   validação compartilhada, sem dependência de MIDI
 flcommons_wire/     protocolo da integração MIDI opcional
 tests/              testes de contrato, falhas e integração HTTP real local

@@ -30,6 +30,6 @@ por seu catálogo. O serviço limita corpos, filas e conexões; saturação pode
 conexões ou recusar operações. Uma nova conexão HTTP que falhe pode deixar uma
 escrita ambígua, mesmo antes de receber um erro estruturado.
 
-Não há repositório público ou endereço de segurança designado nesta entrega.
+O repositório é público; ainda não há endereço de segurança designado nesta entrega.
 Até essa estrutura existir, compartilhe relatos com os mantenedores pelo canal
 privado acordado, sem incluir tokens, projetos privados ou dados do computador.

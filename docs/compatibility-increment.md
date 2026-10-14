@@ -1,5 +1,9 @@
 # Primeiro perfil de compatibilidade do FL Commons
 
+Plano histórico desse incremento. A leitura e o transporte no FL foram
+posteriormente verificados, e o OpenAPI inicial foi adicionado. Consulte
+[validação atual](validation.md) e [contrato público](public-api.md).
+
 Objetivo autorizado: avançar a API comunitária consistente do plano original.
 Este incremento usa o fluxo nativo existente: leitura autenticada de evidências
 da sessão e instalação para o build mais recente. Execução inline autorizada

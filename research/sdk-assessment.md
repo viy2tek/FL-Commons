@@ -1,5 +1,9 @@
 # SDK recebido: avaliação inicial
 
+Registro histórico da avaliação inicial. O plugin foi implementado e o
+transporte foi posteriormente verificado no build-alvo; veja
+[componente nativo](../native/README.md) e [validação](../docs/validation.md).
+
 Arquivo fornecido: `D:/downloads/fpsdk_20210311b.zip`.
 SHA-256: `a29c5bfbfd576ab9798574920ce911a7b4fe68c2aa7d11bec2546cdf4a6b35b1`.
 ZIP íntegro, 269146 bytes. Não foram executados instaladores, scripts ou exemplos

@@ -1,5 +1,9 @@
 # API HTTP v1 e SDK
 
+O contrato principal nativo e o Core opcional `--native` estão descritos em
+[API pública](public-api.md), com [OpenAPI do Core](openapi.json). As tabelas
+de transporte abaixo distinguem o modo demo/MIDI do componente nativo.
+
 `sdk.catalog` consulta as 87 declarações do dispatcher do SDK recebido. Aceita
 `offset` (inteiro >= 0), `limit` (1..32) e `domain` opcional. No SDK Python:
 `client.sdk_catalog(domain=None, offset=0, limit=32)`. A resposta inclui entries,
@@ -22,13 +26,15 @@ Base: `http://127.0.0.1:3210`. Todas as chamadas exigem
 | Endpoint | Resposta/uso |
 | --- | --- |
 | GET `/v1/health` | `{service, version, scope: service-only}`; não testa o FL |
-| GET `/v1/capabilities` | padrão/demo: `{api_version, fl_version, mode, compatibility, capabilities}`; campos adicionais apenas na opção MIDI |
+| GET `/v1/status` | conexão, modo e build conforme o backend; sem backend real, `connected: false` |
+| GET `/v1/capabilities` | `{api_version, fl_version, mode, compatibility, capabilities}`; `--native` inclui detalhes por operação; MIDI tem campos próprios |
 | POST `/v1/commands` | JSON `{method, params: {}}`, responde `{result: ...}` |
 
 | Capacidade | Resultado | Tipo |
 | --- | --- | --- |
 | `transport.state` | `{playing: bool, recording: bool, position: number}` | leitura |
 | `transport.start` | `null` após o callback retornar | escrita |
+| `transport.play_pause` | demo: `null`; nativo: `{host_result, disposition}` | escrita, alternância |
 | `transport.stop` | `null` após o callback retornar | escrita |
 | `host.inspect` | `{platform, installations, processes, coverage, control_connected: false}` | leitura real do Windows, fora do demo |
 
@@ -52,10 +58,11 @@ argumentos. Não são unidades de tempo ou beats. `compatibility: unverified`
 significa que a resposta não certifica testes reais nesse build. O catálogo é
 uma lista fechada, reduzida pelas funções disponíveis; não enumera APIs internas.
 
-As operações transport.* dessa tabela são simuladas em `--demo` e só chegam ao
-FL na integração MIDI opcional. Nenhuma delas tem implementação de controle
-musical nativo direto nesta etapa. `host.inspect` é a operação real implementada
-no serviço padrão Windows; não mede o estado musical do aplicativo.
+As operações de reprodução/gravação/posição e `transport.start` dessa tabela
+descrevem demo/MIDI. No caminho nativo, estado retorna `{playing: bool|null,
+source: host_callback}`; Play/Pause e Stop retornam `{host_result, disposition}`.
+Essas três operações foram verificadas no FL 26.1.7.5653; o Core `--native`
+as encaminha ao plugin. `host.inspect` não mede estado musical do aplicativo.
 
 O corpo tem limite de 8192 bytes, precisa de Content-Length único e Content-Type
 application/json. Parâmetros são validados por operação; campos extras, chaves duplicadas, JSON inválido e

@@ -69,15 +69,15 @@ do SDK proprietário; seus termos permanecem separados.
 | Compatibilidade adaptativa (p. 8–10, 13) | Restrição ao build-alvo, perfil conhecido e introspecção da sessão | Seleção entre adaptadores, matriz validada, atualização assinada, distribuição confiável, rollback e política de updates ausentes |
 | Eventos (p. 10, 13) | Callback de reprodução atualiza cache de estado | Sem eventos normalizados públicos, sequências, ressincronização ou WebSocket |
 | SDK e contrato (p. 3–4, 6, 13) | FLStudio.connect(), status e namespace transport; OpenAPI do Core | SDK TypeScript e namespaces dos demais domínios ausentes |
-| Confiabilidade (p. 12–15) | 44 testes Python, 15 HTTP nativos, 4 instalador e contrato C++; token DPAPI recuperável | Fechamento/recarregamento do FL durante comando e impacto em áudio ainda precisam de teste real |
+| Confiabilidade (p. 12–15) | 52 testes Python, 21 nativos (16 HTTP, 4 instalador, 1 DPAPI) e contrato C++; token DPAPI recuperável | Fechamento/recarregamento do FL durante comando e impacto em áudio ainda precisam de teste real |
 | FLP offline (p. 11) | Não implementado | Complementar e posterior; não deve desviar o primeiro marco |
 
 Arquivos conferidos: native/local_api.h, native/plugin.cpp, native/setup.py,
 fl_commons/api.py, fl_commons/sdk.py, fl_commons/session.py e
 research/native-api-validation.json. Evidência real:
 [fl-native-session-probe.json](../research/fl-native-session-probe.json).
-Os números de testes descrevem a validação registrada anteriormente; não houve
-nova execução da suíte durante esta análise documental.
+Os números de testes correspondem à [validação atual](validation.md), com
+hashes distintos para a DLL compilada e a efetivamente testada no FL.
 
 ## Limites da prova atual
 

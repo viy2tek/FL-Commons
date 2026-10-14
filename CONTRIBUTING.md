@@ -20,7 +20,7 @@ adicione dependências apenas com propósito e licença verificados. Não copie
 implementações ou recursos da Image-Line. Contribuições originais são recebidas
 sob a licença MIT do projeto; revise direitos antes de enviar código de terceiros.
 
-Quando um repositório público for criado, revisão aberta decidirá a aceitação de
-mudanças. Nenhuma organização, grupo de mantenedores, registro de marca ou apoio
+O [repositório público](https://github.com/viy2tek/FL-Commons) está disponível;
+revisão aberta decidirá a aceitação de mudanças. Nenhuma organização, grupo de mantenedores, registro de marca ou apoio
 da Image-Line foi estabelecido por esta entrega. Discussões devem respeitar
 colaboradores e relatar divergências com evidências técnicas.
