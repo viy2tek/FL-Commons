@@ -1,0 +1,25 @@
+{
+  "musical_writes": false,
+  "signed_channel": "verified and staged over real HTTPS",
+  "activation_with_loaded_fl": "pending_reload",
+  "native_status": {
+    "connected": true,
+    "mode": "fl-native",
+    "fl_version": "26.1.7.5653",
+    "session_id": "90f4fe411ba3bb7c4ff2d2d8595284aa",
+    "gui_responsive": true,
+    "host_version_raw": 26001007,
+    "state_callback_observed": true,
+    "runtime_contract": "fpsdk-20210311b-v1",
+    "compatibility": "experimental"
+  },
+  "native_state": {
+    "playing": false,
+    "source": "host_callback"
+  },
+  "resolved_capabilities": [
+    "transport.state",
+    "transport.play_pause",
+    "transport.stop"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-14",
+  "target_product_version": "26.1.7.5653",
+  "binary": "FL Commons API.dll",
+  "sha256": "3da668a48c70f4298972faf6f5bc134e7fd12db4bbddedda1485ef069b697941",
+  "compiler": "MSVC 14.44.35207 x64 /std:c++17 /O2 /MT",
+  "sdk_archive_sha256": "a29c5bfbfd576ab9798574920ce911a7b4fe68c2aa7d11bec2546cdf4a6b35b1",
+  "python_tests_passed": 52,
+  "native_http_tests_passed": 16,
+  "native_sdk_contract_assertions": "passed",
+  "factory_rejects_python_process": true,
+  "fl_loaded": true,
+  "fl_runtime_tested": true,
+  "installed_into_fl": true,
+  "binary_modified": false,
+  "native_protocol": {
+    "port": 3211,
+    "methods": [
+      "transport.state",
+      "transport.play_pause",
+      "transport.stop"
+    ],
+    "host_call_thread": "creating GUI thread via Idle_Public",
+    "midi_required": false,
+    "python_server_required": false,
+    "introspection": "/v1/compatibility"
+  },
+  "native_setup_tests_passed": 4,
+  "fl_runtime_validated": false,
+  "authenticated_reads_tested": true,
+  "transport_writes_tested_in_fl": true,
+  "fl_executable_modified": false,
+  "runtime_validation_scope": "Authenticated reads, wrong-token rejection and callback-confirmed Play/Pause/Play/Stop in an authorized test session on one build. Not a full SDK compatibility certification.",
+  "installed_binary_name": "FL Commons API_x64.dll",
+  "native_profile": "fpsdk-20210311b-transport-v1",
+  "automatic_updates_implemented": false,
+  "observed_operations": [
+    "transport.state",
+    "transport.play_pause",
+    "transport.stop"
+  ],
+  "host_version_raw_observed": 26001007,
+  "real_session_evidence": "research/fl-native-session-probe.json",
+  "runtime_tested_binary_sha256": "8cd7f1108c553a92633f6d2553aaecbb7b284f58722b66f4817ee431f310c661",
+  "current_binary_runtime_tested": false,
+  "runtime_tested_binary_difference": "Current build additionally releases the GUI queue mutex before socket responses; controlled-host regression passed. This additional change has not been reloaded into FL.",
+  "native_token_provider_tests_passed": 1,
+  "automated_tests_total": 73,
+  "factory_signature_contract": "passed: CreatePlugInstance(Host, Tag)",
+  "transport_evidence": "research/fl-native-transport-probe.json",
+  "public_sdk_and_core_smoke": "research/public-api-smoke.json"
+}

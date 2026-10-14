@@ -1,0 +1,61 @@
+{
+  "build": "26.1.7.5653",
+  "session_id": "90f4fe411ba3bb7c4ff2d2d8595284aa",
+  "explicit_user_approval": true,
+  "initial": {
+    "playing": false,
+    "source": "host_callback"
+  },
+  "steps": [
+    {
+      "method": "transport.play_pause",
+      "expected_playing": true,
+      "reply": {
+        "host_result": 5,
+        "disposition": "delayed"
+      },
+      "confirmed_state": {
+        "playing": true,
+        "source": "host_callback"
+      }
+    },
+    {
+      "method": "transport.play_pause",
+      "expected_playing": false,
+      "reply": {
+        "host_result": 5,
+        "disposition": "delayed"
+      },
+      "confirmed_state": {
+        "playing": false,
+        "source": "host_callback"
+      }
+    },
+    {
+      "method": "transport.play_pause",
+      "expected_playing": true,
+      "reply": {
+        "host_result": 5,
+        "disposition": "delayed"
+      },
+      "confirmed_state": {
+        "playing": true,
+        "source": "host_callback"
+      }
+    },
+    {
+      "method": "transport.stop",
+      "expected_playing": false,
+      "reply": {
+        "host_result": 5,
+        "disposition": "delayed"
+      },
+      "confirmed_state": {
+        "playing": false,
+        "source": "host_callback"
+      }
+    }
+  ],
+  "passed": true,
+  "native_dll_sha256": "1311b18638cbe95026f432523d10717c6b109df163e3874b65677e525787541e"
+}

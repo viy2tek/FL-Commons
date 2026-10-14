@@ -1,0 +1,52 @@
+{
+  "target_build": "26.1.7.5653",
+  "connected": true,
+  "authenticated_reads_tested": true,
+  "writes_executed": false,
+  "wrong_token_rejected": true,
+  "token_source": "installed SDK Client.from_native_session / Windows DPAPI",
+  "binary_sha256": "8cd7f1108c553a92633f6d2553aaecbb7b284f58722b66f4817ee431f310c661",
+  "health": {
+    "status": "ok"
+  },
+  "compatibility": {
+    "profile": "fpsdk-20210311b-transport-v1",
+    "mode": "fl-native",
+    "session_id": "73997e9301e5ed53cfb0e9990e17d785",
+    "fl_build": "26.1.7.5653",
+    "host_version_raw": 26001007,
+    "gui_dispatch_observed": true,
+    "gui_responsive": true,
+    "last_gui_idle_age_ms": 0,
+    "state_callback_observed": true,
+    "fl_runtime_validated": false,
+    "automatic_updates": false,
+    "operations": [
+      {
+        "method": "transport.state",
+        "interface": "FPD_SetPlaying",
+        "validation": "unverified",
+        "experimental": true,
+        "automatically_probed": false
+      },
+      {
+        "method": "transport.play_pause",
+        "interface": "FHD_Transport/FPT_Play",
+        "validation": "unverified",
+        "experimental": true,
+        "automatically_probed": false
+      },
+      {
+        "method": "transport.stop",
+        "interface": "FHD_Transport/FPT_Stop",
+        "validation": "unverified",
+        "experimental": true,
+        "automatically_probed": false
+      }
+    ]
+  },
+  "state": {
+    "playing": false,
+    "source": "host_callback"
+  }
+}
