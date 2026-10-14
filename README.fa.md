@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## اعتبارسنجی و محدودیت‌ها
 
-**تأیید شده:** ۷۷ آزمون Python و ۲۷ آزمون بومی به‌صورت محلی موفق شدند. Python CI روی Windows و Linux با Python 3.10، 3.12 و 3.14 موفق شد. در جلسه آزمایشی مجاز، callbackهای FL 26.1.7.5653 توالی Play → Pause → Play → Stop را تأیید کردند. CI لینوکس افزونه FL را اعتبارسنجی نمی‌کند.
+**تأیید شده:** ۷۹ آزمون Python و ۲۸ آزمون بومی به‌صورت محلی موفق شدند. Python CI روی Windows و Linux با Python 3.10، 3.12 و 3.14 موفق شد. در جلسه آزمایشی مجاز، callbackهای FL 26.1.7.5653 توالی Play → Pause → Play → Stop را تأیید کردند. CI لینوکس افزونه FL را اعتبارسنجی نمی‌کند.
 
-ویرایش Mixer، کانال و پروژه و رویدادهای عمومی پیاده‌سازی نشده‌اند. انتخاب تطبیقی از پروفایل رابط‌های پیاده‌شده استفاده می‌کند و به‌روزرسانی تأییدشده staging و rollback دارد. قراردادهای دیگر به پروفایل تأییدشده نیاز دارند؛ کشف نامحدود یا سازگاری همه بیلدها ادعا نمی‌شود. DLL جدید آزمون کنترل‌شده را گذرانده ولی هنوز در FL دوباره بارگذاری نشده است. راهنمای سازگاری را ببینید.
+ویرایش Mixer، کانال و پروژه و رویدادهای عمومی پیاده‌سازی نشده‌اند. انتخاب تطبیقی از پروفایل رابط‌های پیاده‌شده استفاده می‌کند و به‌روزرسانی تأییدشده staging و rollback دارد. قراردادهای دیگر به پروفایل تأییدشده نیاز دارند؛ کشف نامحدود یا سازگاری همه بیلدها ادعا نمی‌شود. راهنمای سازگاری را ببینید.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

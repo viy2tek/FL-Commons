@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## 検証と制限
 
-**検証済み：**ローカルで Python テスト 77 件とネイティブテスト 27 件が成功。Python CI は Windows、Linux、Python 3.10・3.12・3.14 で成功しました。許可されたテストセッションで、FL 26.1.7.5653 のコールバックが Play → Pause → Play → Stop を確認しました。Linux CI は FL プラグインを検証しません。
+**検証済み：**ローカルで Python テスト 79 件とネイティブテスト 28 件が成功。Python CI は Windows、Linux、Python 3.10・3.12・3.14 で成功しました。許可されたテストセッションで、FL 26.1.7.5653 のコールバックが Play → Pause → Play → Stop を確認しました。Linux CI は FL プラグインを検証しません。
 
-Mixer・チャンネル・プロジェクト編集と公開イベントは未実装です。適応的選択は実装済みインターフェースのプロファイルを使い、検証済み更新はステージングとロールバックに対応します。その他の契約には検証済みプロファイルが必要で、無制限の検出や全ビルドの互換性は保証しません。新 DLL は制御テストに成功しましたが、FL には未再ロードです。互換性ガイドを参照してください。
+Mixer・チャンネル・プロジェクト編集と公開イベントは未実装です。適応的選択は実装済みインターフェースのプロファイルを使い、検証済み更新はステージングとロールバックに対応します。その他の契約には検証済みプロファイルが必要で、無制限の検出や全ビルドの互換性は保証しません。互換性ガイドを参照してください。
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

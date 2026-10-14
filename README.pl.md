@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Weryfikacja i ograniczenia
 
-**Zweryfikowano:** lokalnie przeszły 77 testy Python i 27 testów natywnych. Python CI przeszedł na Windows i Linux z Python 3.10, 3.12 i 3.14. Callbacki FL 26.1.7.5653 potwierdziły Play → Pause → Play → Stop w autoryzowanej sesji testowej. Linux CI nie weryfikuje wtyczki FL.
+**Zweryfikowano:** lokalnie przeszły 79 testy Python i 28 testów natywnych. Python CI przeszedł na Windows i Linux z Python 3.10, 3.12 i 3.14. Callbacki FL 26.1.7.5653 potwierdziły Play → Pause → Play → Stop w autoryzowanej sesji testowej. Linux CI nie weryfikuje wtyczki FL.
 
-Edycja Mixer/kanałów/projektów i publiczne zdarzenia nie są zaimplementowane. Adaptacyjny wybór używa profili zaimplementowanych interfejsów; zweryfikowane aktualizacje obsługują staging i rollback. Inne kontrakty wymagają sprawdzonych profili; nie deklarujemy nieograniczonego wykrywania ani zgodności ze wszystkimi buildami. Nowa DLL przeszła kontrolowane testy, ale nie została ponownie załadowana w FL. Zobacz przewodnik zgodności.
+Edycja Mixer/kanałów/projektów i publiczne zdarzenia nie są zaimplementowane. Adaptacyjny wybór używa profili zaimplementowanych interfejsów; zweryfikowane aktualizacje obsługują staging i rollback. Inne kontrakty wymagają sprawdzonych profili; nie deklarujemy nieograniczonego wykrywania ani zgodności ze wszystkimi buildami. Zobacz przewodnik zgodności.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

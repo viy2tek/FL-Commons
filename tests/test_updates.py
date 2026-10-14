@@ -7,6 +7,7 @@ from pathlib import Path
 import tempfile
 import unittest
 import zipfile
+from unittest.mock import patch
 try:
     from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
     from cryptography.hazmat.primitives import serialization
@@ -14,7 +15,7 @@ except ImportError:
     raise unittest.SkipTest('Install fl-commons[updates] to run signature tests')
 from fl_commons.compatibility import builtin_profiles
 from fl_commons.errors import OperationError
-from fl_commons.updates import verify_manifest, stage_update, activate_update, rollback_update, _lock, _Redirect, _allowed_url, set_update_policy, check_updates, active_profiles
+from fl_commons.updates import verify_manifest, stage_update, activate_update, rollback_update, _lock, _Redirect, _allowed_url, set_update_policy, check_updates, active_profiles, validate_candidate
 
 KEY = Ed25519PrivateKey.from_private_bytes(bytes(range(32)))  # Test-only, never a production root.
 ROOT = {'fixture': KEY.public_key().public_bytes(serialization.Encoding.Raw, serialization.PublicFormat.Raw)}
@@ -35,6 +36,48 @@ def payload(data, revision=1, kind='adapter_profile'):
 
 
 class UpdateTests(unittest.TestCase):
+    def test_production_rollback_accepts_retained_expired_profile_and_syncs_policy(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            root.joinpath('root.json').write_text(json.dumps({'fixture': base64.b64encode(ROOT['fixture']).decode()}))
+            executable = root / 'FL64.exe'
+            binary = root / 'Plugins/Fruity/Effects/FL Commons API/FL Commons API_x64.dll'
+            binary.parent.mkdir(parents=True)
+            binary.write_bytes(b'MZfixture')
+            policy = root / 'native-policy.bin'
+            inventory = {'selected_version': '26.1.7.5653', 'processes': [],
+                         'installations': [{'path': str(executable), 'version': '26.1.7.5653'}]}
+            with patch('fl_commons.host.inspect_host', return_value=inventory), patch('fl_commons.session.session_path', return_value=root / 'native-session.bin'), patch('fl_commons.session._dpapi', side_effect=lambda data, protect: data), patch('fl_commons.updates.time.time', return_value=1000):
+                for revision, expiry in ((1, 2000), (2, 4000)):
+                    profiles = copy.deepcopy(builtin_profiles())
+                    if revision == 1:
+                        profiles[0]['operations'] = {'transport.state': 'transport.state'}
+                    data = json.dumps(profiles).encode()
+                    document = payload(data, revision)
+                    document['expires_at'] = expiry
+                    stage = stage_update(verify_manifest(signed(document), ROOT, 0, 1000), root / 'staged', lambda u, n: data)
+                    activate_update(stage, root, validate_candidate, False)
+                self.assertTrue(policy.read_bytes().endswith(b'\n7\n'))
+                with patch('fl_commons.updates.time.time', return_value=3000):
+                    self.assertEqual(rollback_update(root, validate_candidate)['status'], 'active')
+                self.assertTrue(policy.read_bytes().endswith(b'\n1\n'))
+                before = json.loads((root / 'state.json').read_text())
+                with patch('fl_commons.compatibility.save_native_policy', side_effect=OSError('fixture failure')):
+                    with self.assertRaises(OSError):
+                        rollback_update(root, validate_candidate)
+                self.assertEqual(json.loads((root / 'state.json').read_text()), before)
+                self.assertEqual(policy.read_bytes(), b'FLCommons-activation-pending')
+
+    def test_failed_automatic_check_is_cached_without_advancing_revision(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            root.joinpath('root.json').write_text(json.dumps({'fixture': base64.b64encode(ROOT['fixture']).decode()}))
+            set_update_policy('automatic', root)
+            with self.assertRaises(OSError):
+                check_updates(root, lambda u, n: (_ for _ in ()).throw(OSError('offline')), automatic=True, now=4000)
+            self.assertEqual(check_updates(root, automatic=True, now=4001)['status'], 'not_checked')
+            self.assertEqual(json.loads((root / 'state.json').read_text())['highest_revision'], 0)
+
     def test_manual_policy_has_no_network_and_automatic_check_is_cached(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

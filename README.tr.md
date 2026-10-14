@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Doğrulama ve sınırlar
 
-**Doğrulandı:** yerelde 77 Python ve 27 yerel bileşen testi geçti. Python CI, Windows ve Linux üzerinde Python 3.10, 3.12 ve 3.14 ile geçti. Yetkili test oturumunda FL 26.1.7.5653 geri çağrıları Play → Pause → Play → Stop dizisini doğruladı. Linux CI, FL eklentisini doğrulamaz.
+**Doğrulandı:** yerelde 79 Python ve 28 yerel bileşen testi geçti. Python CI, Windows ve Linux üzerinde Python 3.10, 3.12 ve 3.14 ile geçti. Yetkili test oturumunda FL 26.1.7.5653 geri çağrıları Play → Pause → Play → Stop dizisini doğruladı. Linux CI, FL eklentisini doğrulamaz.
 
-Mixer/kanal/proje düzenleme ve genel olaylar uygulanmadı. Adaptif seçim uygulanmış arayüz profillerini kullanır; doğrulanmış güncellemeler staging ve rollback sağlar. Diğer sözleşmeler doğrulanmış profil gerektirir; sınırsız keşif veya tüm derlemelerle uyumluluk iddia edilmez. Yeni DLL kontrollü testleri geçti ama FL’ye yeniden yüklenmedi. Uyumluluk kılavuzuna bakın.
+Mixer/kanal/proje düzenleme ve genel olaylar uygulanmadı. Adaptif seçim uygulanmış arayüz profillerini kullanır; doğrulanmış güncellemeler staging ve rollback sağlar. Diğer sözleşmeler doğrulanmış profil gerektirir; sınırsız keşif veya tüm derlemelerle uyumluluk iddia edilmez. Uyumluluk kılavuzuna bakın.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

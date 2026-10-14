@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## 검증과 한계
 
-**검증됨:** 로컬 Python 테스트 77개와 네이티브 테스트 27개가 통과했습니다. Python CI는 Windows, Linux 및 Python 3.10, 3.12, 3.14에서 통과했습니다. 승인된 테스트 세션에서 FL 26.1.7.5653 콜백으로 Play → Pause → Play → Stop을 확인했습니다. Linux CI는 FL 플러그인을 검증하지 않습니다.
+**검증됨:** 로컬 Python 테스트 79개와 네이티브 테스트 28개가 통과했습니다. Python CI는 Windows, Linux 및 Python 3.10, 3.12, 3.14에서 통과했습니다. 승인된 테스트 세션에서 FL 26.1.7.5653 콜백으로 Play → Pause → Play → Stop을 확인했습니다. Linux CI는 FL 플러그인을 검증하지 않습니다.
 
-Mixer/채널/프로젝트 편집과 공개 이벤트는 미구현입니다. 적응형 선택은 구현된 인터페이스 프로필을 사용하며 검증된 업데이트는 스테이징과 롤백을 지원합니다. 다른 계약에는 검증된 프로필이 필요합니다. 무제한 탐색이나 모든 빌드 호환성을 주장하지 않습니다. 새 DLL은 제어 테스트를 통과했지만 FL에 다시 로드되지 않았습니다. 호환성 안내를 참고하세요.
+Mixer/채널/프로젝트 편집과 공개 이벤트는 미구현입니다. 적응형 선택은 구현된 인터페이스 프로필을 사용하며 검증된 업데이트는 스테이징과 롤백을 지원합니다. 다른 계약에는 검증된 프로필이 필요합니다. 무제한 탐색이나 모든 빌드 호환성을 주장하지 않습니다. 호환성 안내를 참고하세요.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

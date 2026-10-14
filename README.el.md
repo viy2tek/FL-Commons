@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Επαλήθευση και όρια
 
-**Επαληθεύτηκαν:** 77 δοκιμές Python και 27 εγγενείς δοκιμές πέρασαν τοπικά. Το Python CI πέρασε σε Windows και Linux με Python 3.10, 3.12 και 3.14. Οι επανακλήσεις του FL 26.1.7.5653 επιβεβαίωσαν Play → Pause → Play → Stop σε εξουσιοδοτημένη συνεδρία δοκιμής. Το Linux CI δεν επαληθεύει το πρόσθετο FL.
+**Επαληθεύτηκαν:** 79 δοκιμές Python και 28 εγγενείς δοκιμές πέρασαν τοπικά. Το Python CI πέρασε σε Windows και Linux με Python 3.10, 3.12 και 3.14. Οι επανακλήσεις του FL 26.1.7.5653 επιβεβαίωσαν Play → Pause → Play → Stop σε εξουσιοδοτημένη συνεδρία δοκιμής. Το Linux CI δεν επαληθεύει το πρόσθετο FL.
 
-Επεξεργασία Mixer/καναλιών/έργων και δημόσια συμβάντα δεν υλοποιήθηκαν. Η προσαρμοστική επιλογή χρησιμοποιεί προφίλ υλοποιημένων διεπαφών· επαληθευμένες ενημερώσεις υποστηρίζουν staging και rollback. Άλλες συμβάσεις απαιτούν επαληθευμένα προφίλ· δεν δηλώνεται απεριόριστη ανακάλυψη ή συμβατότητα με όλα τα builds. Η νέα DLL πέρασε ελεγχόμενες δοκιμές αλλά δεν επαναφορτώθηκε στο FL. Δείτε τον οδηγό συμβατότητας.
+Επεξεργασία Mixer/καναλιών/έργων και δημόσια συμβάντα δεν υλοποιήθηκαν. Η προσαρμοστική επιλογή χρησιμοποιεί προφίλ υλοποιημένων διεπαφών· επαληθευμένες ενημερώσεις υποστηρίζουν staging και rollback. Άλλες συμβάσεις απαιτούν επαληθευμένα προφίλ· δεν δηλώνεται απεριόριστη ανακάλυψη ή συμβατότητα με όλα τα builds. Δείτε τον οδηγό συμβατότητας.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

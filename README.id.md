@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Validasi dan batasan
 
-**Terverifikasi:** 77 tes Python dan 27 tes native lulus secara lokal. Python CI lulus pada Windows dan Linux dengan Python 3.10, 3.12, dan 3.14. Callback FL 26.1.7.5653 mengonfirmasi Play → Pause → Play → Stop dalam sesi tes yang diizinkan. CI Linux tidak memvalidasi plugin FL.
+**Terverifikasi:** 79 tes Python dan 28 tes native lulus secara lokal. Python CI lulus pada Windows dan Linux dengan Python 3.10, 3.12, dan 3.14. Callback FL 26.1.7.5653 mengonfirmasi Play → Pause → Play → Stop dalam sesi tes yang diizinkan. CI Linux tidak memvalidasi plugin FL.
 
-Penyuntingan Mixer/channel/proyek dan peristiwa publik belum tersedia. Pemilihan adaptif memakai profil antarmuka yang diimplementasikan; pembaruan terverifikasi mendukung staging dan rollback. Kontrak lain memerlukan profil terverifikasi; penemuan tanpa batas atau kompatibilitas semua build tidak diklaim. DLL baru lulus tes terkendali tetapi belum dimuat ulang di FL. Lihat panduan kompatibilitas.
+Penyuntingan Mixer/channel/proyek dan peristiwa publik belum tersedia. Pemilihan adaptif memakai profil antarmuka yang diimplementasikan; pembaruan terverifikasi mendukung staging dan rollback. Kontrak lain memerlukan profil terverifikasi; penemuan tanpa batas atau kompatibilitas semua build tidak diklaim. Lihat panduan kompatibilitas.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

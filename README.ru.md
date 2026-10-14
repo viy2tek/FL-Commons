@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Проверка и ограничения
 
-**Проверено:** локально прошли 77 Python-теста и 27 нативный тест. Python CI прошёл на Windows и Linux с Python 3.10, 3.12 и 3.14. В разрешённой тестовой сессии FL 26.1.7.5653 обратные вызовы подтвердили Play → Pause → Play → Stop. Linux CI не проверяет плагин FL.
+**Проверено:** локально прошли 79 Python-теста и 28 нативный тест. Python CI прошёл на Windows и Linux с Python 3.10, 3.12 и 3.14. В разрешённой тестовой сессии FL 26.1.7.5653 обратные вызовы подтвердили Play → Pause → Play → Stop. Linux CI не проверяет плагин FL.
 
-Редактирование Mixer/каналов/проектов и публичные события не реализованы. Адаптивный выбор использует профили реализованных интерфейсов; проверенные обновления поддерживают staging и откат. Другие контракты требуют проверенных профилей; не заявляется неограниченное обнаружение или совместимость со всеми сборками. Новая DLL прошла контролируемые тесты, но ещё не загружена заново в FL. См. руководство по совместимости.
+Редактирование Mixer/каналов/проектов и публичные события не реализованы. Адаптивный выбор использует профили реализованных интерфейсов; проверенные обновления поддерживают staging и откат. Другие контракты требуют проверенных профилей; не заявляется неограниченное обнаружение или совместимость со всеми сборками. См. руководство по совместимости.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

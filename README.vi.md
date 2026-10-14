@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Kiểm chứng và giới hạn
 
-**Đã kiểm chứng:** 77 kiểm thử Python và 27 kiểm thử native đã đạt cục bộ. Python CI đạt trên Windows, Linux và Python 3.10, 3.12, 3.14. Callback FL 26.1.7.5653 xác nhận Play → Pause → Play → Stop trong phiên kiểm thử được cho phép. CI Linux không kiểm chứng plugin FL.
+**Đã kiểm chứng:** 79 kiểm thử Python và 28 kiểm thử native đã đạt cục bộ. Python CI đạt trên Windows, Linux và Python 3.10, 3.12, 3.14. Callback FL 26.1.7.5653 xác nhận Play → Pause → Play → Stop trong phiên kiểm thử được cho phép. CI Linux không kiểm chứng plugin FL.
 
-Chưa triển khai sửa Mixer/kênh/dự án và sự kiện công khai. Lựa chọn thích ứng dùng hồ sơ giao diện đã triển khai; cập nhật xác minh hỗ trợ staging và rollback. Hợp đồng khác cần hồ sơ đã kiểm chứng; không tuyên bố khám phá vô hạn hay tương thích mọi build. DLL mới đạt thử nghiệm có kiểm soát nhưng chưa nạp lại trong FL. Xem hướng dẫn tương thích.
+Chưa triển khai sửa Mixer/kênh/dự án và sự kiện công khai. Lựa chọn thích ứng dùng hồ sơ giao diện đã triển khai; cập nhật xác minh hỗ trợ staging và rollback. Hợp đồng khác cần hồ sơ đã kiểm chứng; không tuyên bố khám phá vô hạn hay tương thích mọi build. Xem hướng dẫn tương thích.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

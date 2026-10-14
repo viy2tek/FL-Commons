@@ -319,7 +319,7 @@ def activate_update(stage, state_dir, validate, host_running):
         if state['current'] != identity:
             state['previous'], state['current'] = state['current'], identity
         state['pending'] = None
-        _save(directory, state)
+        _commit_activation(directory, state, Path(stage), validate)
         return {'status': 'active', 'revision': manifest['revision']}
 
 
@@ -334,8 +334,47 @@ def rollback_update(state_dir, validate):
         if not validate(stage):
             _fail('update_validation_failed', 'Rollback validation failed')
         state['current'], state['previous'], state['pending'] = state['previous'], state['current'], None
-        _save(directory, state)
+        _commit_activation(directory, state, stage, validate)
         return {'status': 'active', 'highest_revision': state['highest_revision']}
+
+
+def _commit_activation(directory, state, stage, validate):
+    if validate is not validate_candidate:
+        _save(directory, state)
+        return
+    from .host import inspect_host
+    from .compatibility import select_install_profile, save_native_policy, host_api_from_build
+    from .session import session_path
+    inventory = inspect_host()
+    if inventory['processes']:
+        _fail('update_busy', 'FL must be closed before native policy activation')
+    manifest = _validated_stage(stage, directory, now=0)
+    profiles = [p for a in manifest['artifacts'] if a['kind'] == 'adapter_profile'
+                for p in _profiles((stage / a['sha256']).read_bytes())]
+    candidates = [entry for entry in inventory['installations']
+                  if Path(entry['path']).name.lower() == 'fl64.exe'
+                  and entry['version'] == inventory['selected_version']]
+    if not profiles or not candidates:
+        _save(directory, state)
+        return
+    if len(candidates) != 1:
+        _fail('update_validation_failed', 'Select one standard native installation before activation')
+    binary = Path(candidates[0]['path']).parent / 'Plugins/Fruity/Effects/FL Commons API/FL Commons API_x64.dll'
+    if not binary.exists():
+        _save(directory, state)  # Setup binds the policy when the component is first installed.
+        return
+    profile = select_install_profile(inventory['selected_version'], profiles)
+    destination = session_path().with_name('native-policy.bin')
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    previous = _state(directory)
+    # A crash between the two records must disable native dispatch, never retain broader permissions.
+    destination.write_bytes(b'FLCommons-activation-pending')
+    try:
+        _save(directory, state)
+        save_native_policy(binary, profile, host_api_from_build(inventory['selected_version']), destination)
+    except Exception:
+        _save(directory, previous)
+        raise
 
 
 def active_profiles(state_dir=None):
@@ -381,6 +420,8 @@ def check_updates(state_dir=None, fetch=fetch_update, automatic=False, now=None)
         if automatic and (state['policy'] != 'automatic' or epoch - state['last_check'] < 3600):
             return {'status': 'not_checked', 'reason': 'Policy or bounded cache'}
         roots = trusted_keys(directory)
+        state['last_check'] = epoch
+        _save(directory, state)  # Bound failed automatic checks as well as successful checks.
         envelope = fetch(CHANNEL, MAX_MANIFEST)
         try:
             manifest = verify_manifest(envelope, roots, state['highest_revision'], epoch)
@@ -429,7 +470,7 @@ def validate_candidate(stage):
     from .compatibility import select_install_profile
     try:
         inventory = inspect_host()
-        manifest = _validated_stage(stage, Path(stage).parent.parent)
+        manifest = _validated_stage(stage, Path(stage).parent.parent, now=0)
         profiles = [p for a in manifest['artifacts'] if a['kind'] == 'adapter_profile'
                     for p in _profiles((Path(stage) / a['sha256']).read_bytes())]
         if profiles:

@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## التحقق والحدود
 
-**تم التحقق:** نجح محليًا 77 اختبار Python و27 اختبارًا أصليًا. نجح Python CI على Windows وLinux مع Python 3.10 و3.12 و3.14. أكدت استدعاءات FL 26.1.7.5653 تسلسل Play → Pause → Play → Stop في جلسة اختبار مصرح بها. لا يتحقق CI على Linux من إضافة FL.
+**تم التحقق:** نجح محليًا 79 اختبار Python و28 اختبارًا أصليًا. نجح Python CI على Windows وLinux مع Python 3.10 و3.12 و3.14. أكدت استدعاءات FL 26.1.7.5653 تسلسل Play → Pause → Play → Stop في جلسة اختبار مصرح بها. لا يتحقق CI على Linux من إضافة FL.
 
-لم يُنفذ تعديل Mixer والقنوات والمشاريع أو الأحداث العامة. يستخدم الاختيار التكيفي ملفات تعريف لواجهات منفذة؛ وتدعم التحديثات المتحقق منها staging وrollback. تحتاج العقود الأخرى ملفات تعريف متحققًا منها؛ لا يُدّعى اكتشاف غير محدود أو توافق مع كل الإصدارات. نجحت DLL الجديدة في اختبارات مضبوطة لكنها لم تُحمّل مجددًا في FL. راجع دليل التوافق.
+لم يُنفذ تعديل Mixer والقنوات والمشاريع أو الأحداث العامة. يستخدم الاختيار التكيفي ملفات تعريف لواجهات منفذة؛ وتدعم التحديثات المتحقق منها staging وrollback. تحتاج العقود الأخرى ملفات تعريف متحققًا منها؛ لا يُدّعى اكتشاف غير محدود أو توافق مع كل الإصدارات. راجع دليل التوافق.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

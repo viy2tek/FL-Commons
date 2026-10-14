@@ -86,6 +86,11 @@ Immutable staging, an OS lock and an atomic state pointer retain current,
 previous and pending artifacts. Interrupted activation resumes safely. Rollback
 uses a retained verified artifact and preserves the highest accepted revision.
 The updater never closes FL, discards a project or overwrites a loaded DLL.
+Activation and rollback synchronize the installed DLL's protected method policy
+while FL is closed. An interrupted policy commit disables native dispatch until
+setup repairs it; it cannot retain broader native permissions. Explicit rollback
+may reuse an expired retained signed artifact without lowering the replay floor.
+Failed automatic checks are cached for the same bounded hour as successful checks.
 
 ## Limits and evidence
 
@@ -94,6 +99,8 @@ functions or install unreviewed generated code. A profile cannot create a method
 absent from the compiled runtime. Transport is the only native operation family.
 
 [adaptive-api-smoke.json](../research/adaptive-api-smoke.json) records real HTTPS
-signature verification/staging with no musical writes. It does not prove that
-the new DLL was loaded in FL. Controlled fixtures and real host evidence remain
-separate.
+signature verification/staging and authenticated state reads from the new DLL.
+[adaptive-native-transport-probe.json](../research/adaptive-native-transport-probe.json)
+records authorized Play/Pause and Stop checks on FL 26.1.7.5653, with host callback
+confirmation after each command and a stopped final state. The installed DLL's
+SHA-256 is recorded. Controlled fixtures do not establish real FL25 compatibility.

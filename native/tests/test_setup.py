@@ -9,6 +9,13 @@ from native.setup import install_plugin
 
 
 class SetupTests(unittest.TestCase):
+    def setUp(self):
+        for target, value in (('fl_commons.updates.connection_updates', {'status': 'not_checked'}),
+                              ('fl_commons.updates.update_status', {'policy': 'manual'})):
+            mock = patch(target, return_value=value)
+            mock.start()
+            self.addCleanup(mock.stop)
+
     def test_cached_automatic_update_is_applied_and_failure_does_not_break_known_install(self):
         from native.setup import main
         from fl_commons.errors import OperationError

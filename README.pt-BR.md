@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## Validação e limites
 
-**Verificado:** 77 testes Python e 27 nativos passaram localmente. O CI Python passou em Windows e Linux com Python 3.10, 3.12 e 3.14. Play → Pause → Play → Stop foi confirmado pelos callbacks do FL numa sessão de teste autorizada no build 26.1.7.5653. O CI Linux não valida o plugin do FL.
+**Verificado:** 79 testes Python e 28 nativos passaram localmente. O CI Python passou em Windows e Linux com Python 3.10, 3.12 e 3.14. Play → Pause → Play → Stop foi confirmado pelos callbacks do FL numa sessão de teste autorizada no build 26.1.7.5653. O CI Linux não valida o plugin do FL.
 
-Edição de Mixer/canais/projetos e eventos públicos não estão implementados. A seleção adaptativa usa perfis de interfaces implementadas; atualizações verificadas oferecem staging e rollback. Outros contratos precisam de perfis verificados; não há descoberta irrestrita nem compatibilidade comprovada com todos os builds. A DLL nova passou nos testes controlados, mas ainda não foi recarregada no FL. Consulte o guia de compatibilidade para evidências e requisitos de compilação/recarga.
+Edição de Mixer/canais/projetos e eventos públicos não estão implementados. A seleção adaptativa usa perfis de interfaces implementadas; atualizações verificadas oferecem staging e rollback. Outros contratos precisam de perfis verificados; não há descoberta irrestrita nem compatibilidade comprovada com todos os builds. Consulte o guia de compatibilidade para evidências e requisitos de compilação/recarga.
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v

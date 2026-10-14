@@ -65,11 +65,11 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 
 ## การตรวจสอบและข้อจำกัด
 
-**ตรวจสอบแล้ว:** ผ่านการทดสอบ Python 77 รายการและเนทีฟ 27 รายการในเครื่อง Python CI ผ่านบน Windows และ Linux ด้วย Python 3.10, 3.12 และ 3.14 callback ของ FL 26.1.7.5653 ยืนยัน Play → Pause → Play → Stop ในเซสชันทดสอบที่ได้รับอนุญาต CI บน Linux ไม่ได้ตรวจสอบปลั๊กอิน FL
+**ตรวจสอบแล้ว:** ผ่านการทดสอบ Python 79 รายการและเนทีฟ 28 รายการในเครื่อง Python CI ผ่านบน Windows และ Linux ด้วย Python 3.10, 3.12 และ 3.14 callback ของ FL 26.1.7.5653 ยืนยัน Play → Pause → Play → Stop ในเซสชันทดสอบที่ได้รับอนุญาต CI บน Linux ไม่ได้ตรวจสอบปลั๊กอิน FL
 
-ยังไม่มีการแก้ไข Mixer/แชนเนล/โปรเจกต์และเหตุการณ์สาธารณะ การเลือกแบบปรับตัวใช้โปรไฟล์อินเทอร์เฟซที่พัฒนาแล้ว การอัปเดตที่ตรวจสอบรองรับ staging และ rollback สัญญาอื่นต้องมีโปรไฟล์ที่ตรวจสอบแล้ว ไม่อ้างว่าค้นพบได้ไม่จำกัดหรือรองรับทุก build DLL ใหม่ผ่านการทดสอบควบคุมแต่ยังไม่โหลดใหม่ใน FL ดูคู่มือความเข้ากันได้
+ยังไม่มีการแก้ไข Mixer/แชนเนล/โปรเจกต์และเหตุการณ์สาธารณะ การเลือกแบบปรับตัวใช้โปรไฟล์อินเทอร์เฟซที่พัฒนาแล้ว การอัปเดตที่ตรวจสอบรองรับ staging และ rollback สัญญาอื่นต้องมีโปรไฟล์ที่ตรวจสอบแล้ว ไม่อ้างว่าค้นพบได้ไม่จำกัดหรือรองรับทุก build ดูคู่มือความเข้ากันได้
 
-[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/adaptive-native-transport-probe.json)
 
 ```powershell
 .\.venv\Scripts\python -m unittest discover -s tests -v
