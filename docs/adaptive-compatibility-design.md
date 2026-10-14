@@ -1,4 +1,4 @@
-# Adaptive compatibility — design for review
+# Adaptive compatibility — approved design
 
 ## Product definition
 
@@ -105,7 +105,9 @@ updater does not close FL, discard projects or overwrite a loaded DLL.
 
 ## Status
 
-Design only. No adaptive engine or remote updater is implemented by this document.
+Approved by the user on 2026-10-14. Design only: no adaptive engine or remote updater
+is implemented by this document. The implementation plan is in
+[2026-10-14-adaptive-compatibility.md](superpowers/plans/2026-10-14-adaptive-compatibility.md).
 The current published runtime still has its original exact-build restrictions.
 The PDF's pages 8–10 and 13 define this as detection, selection, validation,
 trusted updates and controlled degradation; they do not promise autonomous
