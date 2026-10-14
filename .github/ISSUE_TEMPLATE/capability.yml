@@ -1,0 +1,25 @@
+name: Request a capability
+description: Propose an operation with an interface, context and verification plan.
+title: "[Capability]: "
+body:
+  - type: textarea
+    id: operation
+    attributes:
+      label: Intended operation and use case
+      description: Describe the public API behavior and the tool it would enable.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Documented interface and evidence
+      description: Include official sources, build, parameters, context and known restrictions.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification plan
+      description: Explain read checks and a disposable-project write test where applicable.
+    validations:
+      required: true

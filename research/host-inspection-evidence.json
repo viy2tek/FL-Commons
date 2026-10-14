@@ -1,0 +1,17 @@
+{
+  "installations": [
+    {
+      "version": "26.1.7.5653",
+      "path": "C:\\Program Files\\Image-Line\\FL Studio 2026\\FL64.exe"
+    },
+    {
+      "version": "26.1.7.5653",
+      "path": "C:\\Program Files\\Image-Line\\FL Studio 2026\\FL64 (scaled).exe"
+    }
+  ],
+  "processes": [],
+  "selected_version": "26.1.7.5653",
+  "platform": "windows",
+  "control_connected": false,
+  "coverage": "latest-known-version-in-standard-install-locations"
+}
