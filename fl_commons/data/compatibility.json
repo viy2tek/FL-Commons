@@ -1,0 +1,15 @@
+[
+  {
+    "schema": 1,
+    "adapter_id": "native-sdk-transport-v1",
+    "runtime_contract": "fpsdk-20210311b-v1",
+    "host_major_min": 25,
+    "host_api_versions": [26001007],
+    "operations": {
+      "transport.state": "transport.state",
+      "transport.play_pause": "transport.play_pause",
+      "transport.stop": "transport.stop"
+    },
+    "tested_builds": ["26.1.7.5653"]
+  }
+]
