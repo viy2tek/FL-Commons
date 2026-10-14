@@ -1,0 +1,107 @@
+<div align="center">
+
+[English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Türkçe](README.tr.md) · [Русский](README.ru.md) · [Tiếng Việt](README.vi.md) · **ไทย** · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Українська](README.uk.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [فارسی](README.fa.md) · [العربية](README.ar.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md) · [Ελληνικά](README.el.md)
+
+# FL Commons
+
+### API ชุมชนอิสระสำหรับ FL Studio
+
+[![Tests](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml/badge.svg)](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+[GitHub](https://github.com/viy2tek/FL-Commons) · [API](docs/public-api.md) · [OpenAPI](docs/openapi.json) · [Issues](https://github.com/viy2tek/FL-Commons/issues)
+
+</div>
+
+สร้างเครื่องมือของคุณเองสำหรับ FL Studio โดย FL Commons มุ่งให้ข้อมูลโปรเจกต์ สถานะ และการสั่งงานสำหรับ FL Studio Time Machine, Universal Project Search, FL Studio Self-Healing, Universal DAW Translator และอื่น ๆ แอปเหล่านี้เป็นเป้าหมายในอนาคต ยังไม่ได้พัฒนาเสร็จ
+
+## ความสามารถปัจจุบัน
+
+v0.1.0 ระยะทดลอง: HTTP ภายในเครื่องพร้อมการยืนยันตัวตน, Python SDK, สถานะการเล่น, Play/Pause และ Stop ผ่านปลั๊กอิน SDK ทางการ Core แบบเลือกใช้มีแค็ตตาล็อกหลักฐานของตัวเลือก SDK 87 รายการ รายการในแค็ตตาล็อกไม่ได้เปิดใช้คำสั่งโดยอัตโนมัติ MIDI เป็นตัวเลือก และ API โดยตรงไม่ต้องมีเซิร์ฟเวอร์ Python แยก
+
+```text
+transport.state
+transport.play_pause
+transport.stop
+```
+
+## เริ่มต้นใช้งาน
+
+การเชื่อมต่อแบบเนทีฟต้องใช้ Windows x64, FL Studio **26.1.7.5653**, Python 3.10+, MSVC 2022 Build Tools, Windows SDK และ **fpsdk_20210311b** ที่จัดหามาแยกต่างหาก ระบบปฏิเสธ FL build อื่น ให้แตก SDK นอกที่เก็บโค้ดและเปลี่ยนพาธตัวอย่างให้ตรงกับเครื่องของคุณ
+
+ติดตั้งแพ็กเกจ Python จากที่เก็บโค้ดนี้ แล้วคอมไพล์ส่วนเนทีฟ:
+
+```powershell
+git clone https://github.com/viy2tek/FL-Commons.git
+cd FL-Commons
+python -m venv .venv
+.\.venv\Scripts\python -m pip install .
+.\native\build.ps1 -SdkDirectory 'C:/path/to/extracted-sdk' -OutputDirectory 'C:/path/to/flcommons-build'
+```
+
+บันทึกงานและปิด FL ตามปกติก่อนติดตั้ง ตัวติดตั้งจะเก็บเวอร์ชันเดิมไว้โดยไม่เขียนทับ หลังเปิด FL ให้เพิ่ม **FL Commons API** ในช่อง Mixer ที่ว่าง ตัวเปิดโปรแกรมเก็บโทเค็นด้วย Windows DPAPI อินสแตนซ์เนทีฟหนึ่งตัวใช้พอร์ต 3211
+
+```powershell
+.\.venv\Scripts\python native/setup.py --dll 'C:/path/to/flcommons-build/FL Commons API.dll' --launch
+```
+
+## Python SDK
+
+```python
+from flcommons import FLStudio
+
+fl = FLStudio.connect()
+print(fl.status())
+print(fl.capabilities())
+print(fl.transport.state())
+```
+
+เริ่มด้วยการอ่านข้อมูลเท่านั้น รันคำสั่งต่อไปนี้เฉพาะเมื่อต้องการเปลี่ยนการเล่น Play/Pause เป็นการสลับสถานะ ไม่ใช่คำสั่งเริ่มที่เรียกซ้ำแล้วให้ผลเดิม หลังการเขียนหมดเวลาหรือ outcome_unknown ให้ตรวจสถานะก่อนตัดสินใจ อย่าลองซ้ำอัตโนมัติ
+
+```python
+fl.transport.play_pause()
+fl.transport.stop()
+```
+
+## เซิร์ฟเวอร์ Core แบบเลือกใช้
+
+SDK โดยตรงเชื่อมกับปลั๊กอินที่ 127.0.0.1:3211 หากต้องการแค็ตตาล็อกและสัญญา OpenAPI ของ Core ให้เปิดเซิร์ฟเวอร์แบบเลือกใช้ที่พอร์ต 3210 โทเค็นของไคลเอนต์แยกจากโทเค็น DPAPI เนทีฟ --demo เป็นการจำลองอย่างชัดเจน เซิร์ฟเวอร์เริ่มต้นจะยังไม่เชื่อมต่อ
+
+```powershell
+$env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets.token_hex(32))"
+.\.venv\Scripts\python -m fl_commons serve --native
+```
+
+## การตรวจสอบและข้อจำกัด
+
+**ตรวจสอบแล้ว:** ผ่านการทดสอบ Python 52 รายการและเนทีฟ 21 รายการในเครื่อง Python CI ผ่านบน Windows และ Linux ด้วย Python 3.10, 3.12 และ 3.14 callback ของ FL 26.1.7.5653 ยืนยัน Play → Pause → Play → Stop ในเซสชันทดสอบที่ได้รับอนุญาต CI บน Linux ไม่ได้ตรวจสอบปลั๊กอิน FL
+
+**ยังไม่มี:** การแก้ไข Mixer/แชนเนล/โปรเจกต์ สตรีมเหตุการณ์สาธารณะ การค้นพบแบบไม่จำกัด และอัปเดตอะแดปเตอร์อัตโนมัติ ยังไม่ได้ทดสอบผลต่อเสียงหรือ build อื่น การแก้ล็อกคิวล่าสุดผ่านการทดสอบควบคุมกับไคลเอนต์ที่ช้า แต่ยังไม่ได้โหลดใหม่ใน FL โดยบันทึกแฮชของไฟล์ที่คอมไพล์และที่ทดสอบจริงแยกกัน นี่ไม่ใช่การรับรอง SDK ทั้งหมด
+
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
+
+```powershell
+.\.venv\Scripts\python -m unittest discover -s tests -v
+```
+
+## เอกสาร
+
+ลิงก์ด้านล่างเป็นเอกสารเพิ่มเติม ซึ่งปัจจุบันส่วนใหญ่เป็นภาษาโปรตุเกส README หลักเป็นภาษาอังกฤษ ยินดีรับการแก้ไขคำแปล
+
+- [Public API and Python SDK](docs/public-api.md)
+- [Native build, installation and authentication](native/README.md)
+- [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
+- [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
+- [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
+- [Optional MIDI integration](docs/setup-fl-studio.md)
+- [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
+
+## การมีส่วนร่วมและสัญญาอนุญาต
+
+ร่วมพัฒนาด้วยอินเทอร์เฟซที่มีเอกสาร หลักฐานที่ทำซ้ำได้ และการทดสอบ แยกโค้ดต้นฉบับ วัสดุ SDK และงานวิจัยออกจากกัน การพบสัญลักษณ์หรือผลจำลองไม่ใช่หลักฐานว่าควบคุม FL ได้จริง
+
+[Contributing](CONTRIBUTING.md) · [Request a capability](https://github.com/viy2tek/FL-Commons/issues/new?template=capability.yml)
+
+โค้ดต้นฉบับ FL Commons ใช้สัญญาอนุญาต **MIT** ที่นี่ไม่แจกไฟล์ SDK ของ Image-Line หรือ DLL ที่คอมไพล์แล้ว ข้อกำหนด SDK ใช้แยกต่างหาก FL Commons ไม่ได้เป็นพันธมิตร ได้รับการรับรอง หรือดูแลโดย Image-Line ส่วน FL Studio เป็นเครื่องหมายการค้าของ Image-Line
+
+[MIT License](LICENSE) · [Third-party notices](THIRD_PARTY_NOTICES.md)

@@ -1,141 +1,107 @@
+<div align="center">
+
+**English** · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Türkçe](README.tr.md) · [Русский](README.ru.md) · [Tiếng Việt](README.vi.md) · [ไทย](README.th.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Українська](README.uk.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [فارسی](README.fa.md) · [العربية](README.ar.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md) · [Ελληνικά](README.el.md)
+
 # FL Commons
 
-Investigação atual: [mapa de interfaces para uma API ampla](research/universal-api-scope.md).
-O SDK conectado ao Core pode consultar o catálogo com `client.sdk_catalog()`;
-declarações ainda não são operações de controle habilitadas.
+### An independent community API for FL Studio.
 
-**Uma API comunitária independente para integração com FL Studio.**
+[![Tests](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml/badge.svg)](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Missão: fornecer os recursos de projeto, estado, eventos e operações verificáveis
-que permitam à comunidade construir FL Studio Time Machine, Universal Project
-Search, FL Studio Self-Healing, Universal DAW Translator e outras integrações.
-Esses casos orientam a evolução da API; ainda não estão implementados.
-Veja [missão e lacunas](docs/master-spec-alignment.md).
+[GitHub](https://github.com/viy2tek/FL-Commons) · [API](docs/public-api.md) · [OpenAPI](docs/openapi.json) · [Issues](https://github.com/viy2tek/FL-Commons/issues)
 
-Escopo atual: somente a versão mais recente instalada do FL Studio. A seleção
-compara numericamente o build dos executáveis encontrados e ignora versões
-anteriores. Neste ambiente o alvo é **26.1.7.5653**. Detecção não comprova controle
-musical. Veja [avaliação do SDK recebido](research/sdk-assessment.md).
+</div>
 
-FL Commons não é afiliado, endossado ou mantido pela Image-Line. FL Studio é uma
-marca da Image-Line. Este projeto não distribui código, executáveis ou recursos
-proprietários do FL Studio. Código original sob licença MIT.
+Build your own tools around FL Studio. FL Commons aims to provide the project data, state and operations needed for FL Studio Time Machine, Universal Project Search, FL Studio Self-Healing, Universal DAW Translator and more. These applications are future goals, not implemented features.
 
-## Estado da v0.1: snapshot de desenvolvimento
+## Current capabilities
 
-Diretriz atual: toda funcionalidade é exposta pela API. Servidor HTTP autenticado,
-SDK Python e catálogo são independentes de MIDI. O modo demo simula consulta de
-reprodução/gravação/posição, iniciar e parar reprodução diretamente, sem SysEx.
-MIDI Scripting é uma integração opcional para situações específicas, ativada
-somente por `--midi`; não é requisito do servidor nem a arquitetura principal.
+Experimental v0.1.0: authenticated local HTTP, Python SDK, playback state, Play/Pause and Stop through an official SDK plugin. The optional Core exposes an evidence catalog of 87 SDK selectors; catalog entries do not automatically enable commands. MIDI is optional; the direct API requires no separate Python server.
 
-**Plugin nativo inicial compilado:** hospeda HTTP no FL em 127.0.0.1:3211,
-com estado por callback, Play/Pause e Stop pelo SDK oficial. Não requer MIDI
-nem servidor Python. Compilação e host controlado validados; carregamento no FL
-e rejeição de token incorreto confirmados. Leitura autenticada de compatibilidade
-e estado inicial comprovada no FL; Play/Pause e Stop confirmados em sessão de teste.
-Veja [instalação e uso](native/README.md).
+```text
+transport.state
+transport.play_pause
+transport.stop
+```
 
-Play → Pause → Play → Stop foi confirmado por callbacks no FL
-26.1.7.5653, em sessão de teste autorizada. O SDK público permite:
+## Quick start
+
+Native integration requires Windows x64, FL Studio **26.1.7.5653**, Python 3.10+, MSVC 2022 Build Tools, Windows SDK and the externally supplied **fpsdk_20210311b**. Other FL builds are rejected. Extract the SDK outside the repository. Replace the example paths below with your own.
+
+Install the Python package from this repository, then build the native component:
+
+```powershell
+git clone https://github.com/viy2tek/FL-Commons.git
+cd FL-Commons
+python -m venv .venv
+.\.venv\Scripts\python -m pip install .
+.\native\build.ps1 -SdkDirectory 'C:/path/to/extracted-sdk' -OutputDirectory 'C:/path/to/flcommons-build'
+```
+
+Save your work and close FL normally before setup. The installer preserves existing versions instead of overwriting them. After launch, add **FL Commons API** to a free Mixer slot. The launcher stores the authentication token using Windows DPAPI. One native instance uses port 3211.
+
+```powershell
+.\.venv\Scripts\python native/setup.py --dll 'C:/path/to/flcommons-build/FL Commons API.dll' --launch
+```
+
+## Python SDK
 
 ```python
 from flcommons import FLStudio
+
 fl = FLStudio.connect()
 print(fl.status())
+print(fl.capabilities())
 print(fl.transport.state())
-# Somente quando quiser alternar a reprodução:
+```
+
+Start with read-only queries. Run the following playback commands only when you intend to change playback. Play/Pause is a toggle, not an idempotent start. After a write timeout or `outcome_unknown`, inspect the state before deciding what to do; never automatically retry.
+
+```python
 fl.transport.play_pause()
 fl.transport.stop()
 ```
 
-O caminho direto não exige servidor Python. Para reunir controle nativo e catálogo
-em uma API HTTP opcional, use `fl-commons serve --native`. Sem componente nativo
-acessível, `/v1/status` informa desconexão e comandos falham explicitamente.
-Veja [contrato público e OpenAPI](docs/public-api.md).
+## Optional Core server
 
-O servidor Python `serve` inicia a API
-com `mode: disconnected`; no Windows, `host.inspect` consulta instalações,
-versões e processos reais pelas interfaces do sistema. Comandos de controle retornam
-`backend_unavailable`. `serve --demo` permite testar o contrato com simulação
-explícita. Isso não representa controle real do FL. Veja
-[desenho atual](docs/design.md) e [validação](docs/validation.md).
-
-O plugin possui introspecção de sessão em `client.compatibility()`: perfil
-conhecido, build, ID por carregamento, atividade da GUI e callback observado.
-As operações permanecem experimentais; observação não é certificação de
-compatibilidade. Veja [incremento de compatibilidade](docs/compatibility-increment.md).
-
-Somente a opção MIDI experimental usa SysEx 0x7D para pesquisa privada; um
-lançamento público dessa opção exige enquadramento MIDI permitido.
-
-## Executar agora, sem conectar ao FL Studio
-
-Python 3.10 ou superior para o servidor/SDK. O núcleo usa apenas a biblioteca
-padrão. Dentro desta pasta, em PowerShell:
+The direct SDK connects to the plugin on `127.0.0.1:3211`. If you also need the SDK catalog and the Core OpenAPI contract, start the optional server on port 3210. Its client token is separate from the native DPAPI session token. `--demo` is explicit simulation; the default server starts disconnected.
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\python -m pip install .
 $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets.token_hex(32))"
-.\.venv\Scripts\python -m fl_commons serve --demo
+.\.venv\Scripts\python -m fl_commons serve --native
 ```
 
-Guarde o token de forma privada e forneça o mesmo valor ao cliente. Encerre com Ctrl+C.
-O serviço aceita apenas `127.0.0.1`, por padrão na porta 3210. O modo demo anuncia
-`mode: simulated` e `fl_version: null` explicitamente.
+## Validation and limits
 
-Para iniciar o serviço sem simulação, use `python -m fl_commons serve`. A API
-estará disponível com inspeção real do host no Windows, sem anunciar controle
-musical até que esse acesso seja implementado e validado.
+**Verified:** 52 Python tests and 21 native tests passed locally. Python CI passed on Windows and Linux with Python 3.10, 3.12 and 3.14. Play → Pause → Play → Stop was confirmed by FL callbacks in an authorized test session on build 26.1.7.5653. Linux CI does not validate the FL plugin.
 
-SDK Python, em outro terminal/processo com o mesmo token:
+**Not implemented:** Mixer/channel/project editing, public event streams, unrestricted discovery or automatic adapter updates. Audio impact and other builds are untested. The latest queue-lock fix passed a controlled slow-reader test but has not been reloaded into FL; compiled and live-tested hashes are recorded separately. This is not a certification of the entire SDK.
 
-```python
-import os
-from fl_commons.sdk import Client, APIError
+[Validation](docs/validation.md) · [Native evidence](research/native-api-validation.json) · [Live transport](research/fl-native-transport-probe.json)
 
-client = Client(os.environ['FL_COMMONS_TOKEN'])
-print(client.health())
-print(client.capabilities())
-print(client.command('transport.state'))
-# Estas duas operações alteram reprodução quando conectadas ao FL real:
-client.command('transport.start')
-client.command('transport.stop')
+```powershell
+.\.venv\Scripts\python -m unittest discover -s tests -v
 ```
 
-Não repita automaticamente uma escrita após `outcome_unknown`. Confira o estado
-do FL antes de decidir. O SDK não faz retentativas HTTP.
+## Documentation
 
-No serviço padrão (sem `--demo`), `client.inspect_host()` retorna instalações,
-versões e processos observados no Windows. A presença do FL não habilita os
-comandos musicais. Veja [interfaces pesquisadas](research/direct-interface-map.md).
+The links below provide deeper reference material, currently mostly in Portuguese. English is the primary README; corrections to translations are welcome.
 
-## Estrutura
+- [Public API and Python SDK](docs/public-api.md)
+- [Native build, installation and authentication](native/README.md)
+- [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
+- [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
+- [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
+- [Optional MIDI integration](docs/setup-fl-studio.md)
+- [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
-```text
-fl_commons/          API, servidor HTTP, SDK e CLI; MIDI opcional separado
-  hardware/          callbacks da integração MIDI opcional
-flcommons/          nome público FLStudio para o cliente Python
-native/             componente HTTP dentro do FL, build externo e testes Windows
-flcommons_common/   validação compartilhada, sem dependência de MIDI
-flcommons_wire/     protocolo da integração MIDI opcional
-tests/              testes de contrato, falhas e integração HTTP real local
-docs/               instalação, API, transporte, segurança e validação
-research/           trilha isolada de pesquisa com REA/Ghidra
-examples/           cliente mínimo
-```
+## Contributing and license
 
-Teste: `python -m unittest discover -s tests -v`. CI configura uma matriz de
-Python/Windows/Linux; essa configuração não significa que as execuções remotas
-já ocorreram. [Contribuir](CONTRIBUTING.md), [segurança](SECURITY.md),
-[API](docs/api.md), [protocolo](docs/protocol.md),
-[licenças de terceiros](THIRD_PARTY_NOTICES.md).
+Contribute documented interfaces, reproducible evidence and tests. Keep original code, SDK material and research separate. A detected symbol or simulated result is not proof of working FL control.
 
-Se uma ocasião específica exigir MIDI Scripting, consulte
-[configuração opcional](docs/setup-fl-studio.md). Essa opção não é necessária
-para iniciar a API ou usar seu SDK.
+[Contributing](CONTRIBUTING.md) · [Request a capability](https://github.com/viy2tek/FL-Commons/issues/new?template=capability.yml)
 
-Não há descoberta irrestrita, auto-update, patch do executável, acesso a APIs
-privadas, carregamento de plugins arbitrários, exportação de áudio nem edição
-de notas nesta versão. Ampliar a API exige contrato documentado e testes reais.
+Original FL Commons source is licensed under **MIT**. Image-Line SDK files and compiled DLLs are not distributed here; SDK terms apply separately. FL Commons is not affiliated with, endorsed by or maintained by Image-Line. FL Studio is an Image-Line trademark.
+
+[MIT License](LICENSE) · [Third-party notices](THIRD_PARTY_NOTICES.md)
