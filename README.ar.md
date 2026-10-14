@@ -1,19 +1,10 @@
-<div align="center">
+# FL Commons
+
+FL Commons هو API مجتمعي مستقل للتكامل مع FL Studio. يوفر إمكانات موثقة ومتحققًا منها من خلال عقد عام مستقر. يحدد المطورون تكاملاتهم الخاصة.
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Türkçe](README.tr.md) · [Русский](README.ru.md) · [Tiếng Việt](README.vi.md) · [ไทย](README.th.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Українська](README.uk.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [فارسی](README.fa.md) · **العربية** · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md) · [Ελληνικά](README.el.md)
 
-# FL Commons
-
-### واجهة API مجتمعية مستقلة لـ FL Studio.
-
 [![Tests](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml/badge.svg)](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
-[GitHub](https://github.com/viy2tek/FL-Commons) · [API](docs/public-api.md) · [OpenAPI](docs/openapi.json) · [Issues](https://github.com/viy2tek/FL-Commons/issues)
-
-</div>
-
-FL Commons هو API مجتمعي مستقل للتكامل مع FL Studio. يوفر إمكانات موثقة ومتحققًا منها من خلال عقد عام مستقر. يحدد المطورون تكاملاتهم الخاصة.
 
 ## الإمكانات الحالية
 
@@ -92,6 +83,7 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
+- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

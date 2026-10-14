@@ -1,19 +1,10 @@
-<div align="center">
+# FL Commons
+
+FL Commons es una API comunitaria independiente para integraciones con FL Studio. Expone capacidades documentadas y verificadas mediante un contrato público estable. Los desarrolladores definen sus propias integraciones.
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Türkçe](README.tr.md) · [Русский](README.ru.md) · [Tiếng Việt](README.vi.md) · [ไทย](README.th.md) · [Deutsch](README.de.md) · **Español** · [Français](README.fr.md) · [Українська](README.uk.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [فارسی](README.fa.md) · [العربية](README.ar.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md) · [Ελληνικά](README.el.md)
 
-# FL Commons
-
-### Una API comunitaria independiente para FL Studio.
-
 [![Tests](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml/badge.svg)](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
-[GitHub](https://github.com/viy2tek/FL-Commons) · [API](docs/public-api.md) · [OpenAPI](docs/openapi.json) · [Issues](https://github.com/viy2tek/FL-Commons/issues)
-
-</div>
-
-FL Commons es una API comunitaria independiente para integraciones con FL Studio. Expone capacidades documentadas y verificadas mediante un contrato público estable. Los desarrolladores definen sus propias integraciones.
 
 ## Capacidades actuales
 
@@ -92,6 +83,7 @@ Los enlaces siguientes amplían la documentación, actualmente mayormente en por
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
+- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

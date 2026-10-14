@@ -1,19 +1,10 @@
-<div align="center">
+# FL Commons
+
+FL Commons は FL Studio との連携のための独立したコミュニティ API です。安定した公開契約を通じて、文書化され検証された機能を提供します。開発者は独自の連携を定義できます。
 
 [English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · **日本語** · [한국어](README.ko.md) · [Türkçe](README.tr.md) · [Русский](README.ru.md) · [Tiếng Việt](README.vi.md) · [ไทย](README.th.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Українська](README.uk.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [فارسی](README.fa.md) · [العربية](README.ar.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md) · [Ελληνικά](README.el.md)
 
-# FL Commons
-
-### FL Studio のための独立したコミュニティ API。
-
 [![Tests](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml/badge.svg)](https://github.com/viy2tek/FL-Commons/actions/workflows/tests.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
-[GitHub](https://github.com/viy2tek/FL-Commons) · [API](docs/public-api.md) · [OpenAPI](docs/openapi.json) · [Issues](https://github.com/viy2tek/FL-Commons/issues)
-
-</div>
-
-FL Commons は FL Studio との連携のための独立したコミュニティ API です。安定した公開契約を通じて、文書化され検証された機能を提供します。開発者は独自の連携を定義できます。
 
 ## 現在の機能
 
@@ -92,6 +83,7 @@ $env:FL_COMMONS_TOKEN = .\.venv\Scripts\python -c "import secrets; print(secrets
 - [Native build, installation and authentication](native/README.md)
 - [HTTP API](docs/api.md) · [OpenAPI](docs/openapi.json)
 - [Architecture](docs/design.md) · [Mission and roadmap](docs/master-spec-alignment.md)
+- [Adaptive compatibility design — not implemented](docs/adaptive-compatibility-design.md)
 - [SDK assessment](research/sdk-assessment.md) · [Research](research/README.md)
 - [Optional MIDI integration](docs/setup-fl-studio.md)
 - [Changelog](CHANGELOG.md) · [Security](SECURITY.md)

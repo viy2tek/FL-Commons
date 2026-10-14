@@ -7,7 +7,7 @@ general-purpose. Transport is an initial proof, not the complete product scope.
 See [mission and capability needs](master-spec-alignment.md).
 Project snapshots, stable object identities, dependency diagnostics, musical data
 models and verified operations must distinguish live state, saved files and
-inaccessible data. Preserve native integration, optional MIDI and the latest build
+inaccessible data. Preserve native integration, optional MIDI and the compatibility
 target scope: FL Studio 25/26 and later. The product is the API; consumers are
 external integrations. See [adaptive compatibility design](adaptive-compatibility-design.md).
 
